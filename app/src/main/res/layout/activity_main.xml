@@ -23,7 +23,6 @@
         android:id="@+id/loginButton"
         android:layout_width="320dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/login"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
