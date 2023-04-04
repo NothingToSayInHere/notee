@@ -1,4 +1,4 @@
-package com.example.notee;
+package com.example.notee.model;
 
 public class Note {
     private int id;

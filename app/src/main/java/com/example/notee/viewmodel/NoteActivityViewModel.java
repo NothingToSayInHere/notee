@@ -1,10 +1,13 @@
-package com.example.notee;
+package com.example.notee.viewmodel;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.notee.NoteRepository;
+import com.example.notee.model.Note;
 
 public class NoteActivityViewModel extends ViewModel {
     private NoteRepository repository;

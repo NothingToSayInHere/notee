@@ -1,4 +1,4 @@
-package com.example.notee;
+package com.example.notee.view;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.example.notee.R;
+import com.example.notee.model.Note;
+import com.example.notee.viewmodel.NoteActivityViewModel;
 
 public class NotesActivity extends AppCompatActivity {
 

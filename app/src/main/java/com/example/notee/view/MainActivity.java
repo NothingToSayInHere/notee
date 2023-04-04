@@ -1,8 +1,9 @@
-package com.example.notee;
+package com.example.notee.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.notee.R;
 import com.google.android.material.button.MaterialButton;
 
 import androidx.appcompat.app.AppCompatActivity;
