@@ -13,6 +13,8 @@ public class NoteActivityViewModel extends ViewModel {
     private NoteRepository repository;
     private MutableLiveData<Boolean> isNoteAdded = new MutableLiveData<>(false);
 
+    public NoteActivityViewModel() {}
+
     public NoteActivityViewModel(Application application) {
         repository = new NoteRepository(application);
     }
