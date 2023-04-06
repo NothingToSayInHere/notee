@@ -1,6 +1,7 @@
 package com.example.notee.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,7 +17,12 @@ public class NoteActivityViewModel extends ViewModel {
     public NoteActivityViewModel() {}
 
     public NoteActivityViewModel(Application application) {
-        repository = new NoteRepository(application);
+        NoteRepository repo = new NoteRepository(application);
+        if (repo != null) {
+            repository = repo;
+        } else {
+            throw new IllegalStateException("NoteRepository cannot be null");
+        }
     }
 
     public LiveData<Boolean> getIsNoteAdded() {
@@ -24,9 +30,17 @@ public class NoteActivityViewModel extends ViewModel {
     }
 
     public void addNoteToDatabase(Note note) {
-        repository.addNoteToDatabase(note);
-        isNoteAdded.setValue(true);
+        Log.d("NoteActivityViewModel", "addNoteToDatabase() method called");
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null");
+        }
+        if (repository != null) {
+            repository.addNoteToDatabase(note);
+            isNoteAdded.setValue(true);
+            Log.d("NoteActivityViewModel", "Note added to database: " + note.toString());
+        }
     }
+
 
     public void setIsNoteAdded(boolean value) {
         isNoteAdded.setValue(value);
