@@ -12,16 +12,19 @@
         android:theme="@style/Theme.Notee"
         tools:targetApi="31">
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name="com.example.notee.view.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.notee.view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.example.notee.view.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.notee.view.NotesActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.notee.view.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Notee.NoActionBar">
             <intent-filter>

@@ -1,6 +1,7 @@
 package com.example.notee.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,9 +10,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.notee.NoteDatabaseHelper;
 import com.example.notee.R;
 import com.example.notee.model.Note;
 import com.example.notee.viewmodel.NoteActivityViewModel;
+
+import java.util.List;
 
 public class NotesActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class NotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_list);
+        NoteDatabaseHelper db = new NoteDatabaseHelper(this);
 
         viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
 
@@ -35,19 +40,30 @@ public class NotesActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = titleEditText.getText().toString().trim();
-                String content = contentEditText.getText().toString().trim();
-                if (!title.isEmpty() && !content.isEmpty()) {
-                    Note note = new Note(0, title, content);
-                    viewModel.addNoteToDatabase(note);
-                    // clear the EditText fields to prepare for a new note
-                    titleEditText.setText("");
-                    contentEditText.setText("");
-                } else {
-                    Toast.makeText(NotesActivity.this, "Please enter a title and content for the note.", Toast.LENGTH_SHORT).show();
+                db.addNote(new Note("ze title", "ze content"));
+                Log.d("NotesActivity", "the new note has been added");
+//                String title = titleEditText.getText().toString().trim();
+//                String content = contentEditText.getText().toString().trim();
+//                if (!title.isEmpty() && !content.isEmpty()) {
+//                    Note note = new Note(0, title, content);
+//                    Log.d("NotesActivity", "Adding note: " + note.getTitle() + " - " + note.getContent());
+//                    viewModel.addNoteToDatabase(note);
+//                    // clear the EditText fields to prepare for a new note
+//                    titleEditText.setText("");
+//                    contentEditText.setText("");
+//                } else {
+//                    Toast.makeText(NotesActivity.this, "Please enter a title and content for the note.", Toast.LENGTH_SHORT).show();
+//                }
+                List<Note> notes = db.getAllNotes();
+
+                for (Note n : notes) {
+                    String log = n.getTitle() + n.getContent();
+                    Log.d("note is: ", log);
                 }
             }
         });
+
+
 
         // Observe isNoteAdded LiveData
         viewModel.getIsNoteAdded().observe(this, isNoteAdded -> {
