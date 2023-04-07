@@ -14,7 +14,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/noteTitle"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
@@ -25,11 +25,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/noteDescription"
+        android:id="@+id/noteContent"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Description"
+        android:text="Content"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
