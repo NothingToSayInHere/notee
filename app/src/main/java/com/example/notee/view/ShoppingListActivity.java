@@ -1,66 +1,40 @@
 package com.example.notee.view;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.notee.NoteDatabaseHelper;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import com.example.notee.R;
-import com.example.notee.model.Note;
-import com.example.notee.viewmodel.NoteActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
-public class NotesActivity extends AppCompatActivity {
-    FloatingActionButton floatingAddNote;
-
-    private EditText titleEditText;
-    private EditText contentEditText;
-    private Button addButton;
-
-    private NoteActivityViewModel viewModel;
+public class ShoppingListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notes);
-
-        floatingAddNote = findViewById(R.id.floatingAddNote);
+        setContentView(R.layout.activity_shopping_list);
 
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
         // Set Home selected
-        bottomNavigationView.setSelectedItemId(R.id.notesItem);
-
-        floatingAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NotesActivity.this, AddNoteActivity.class));
-            }
-        });
+        bottomNavigationView.setSelectedItemId(R.id.shoppingListItem);
 
         // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId()) {
-                    case R.id.notesItem:
-                        return true;
+                switch (item.getItemId()) {
                     case R.id.shoppingListItem:
-                        startActivity(new Intent(getApplicationContext(), ShoppingListActivity.class));
+                        return true;
+                    case R.id.notesItem:
+                        startActivity(new Intent(getApplicationContext(), NotesActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profileItem:
@@ -71,12 +45,5 @@ public class NotesActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
-
-
-
-
     }
 }
