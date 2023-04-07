@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notee.NoteDatabaseHelper;
 import com.example.notee.R;
@@ -19,17 +22,15 @@ import com.example.notee.model.Note;
 import com.example.notee.viewmodel.NoteActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesActivity extends AppCompatActivity {
     FloatingActionButton floatingAddNote;
-
-    private EditText titleEditText;
-    private EditText contentEditText;
-    private Button addButton;
-
-    private NoteActivityViewModel viewModel;
+    List<Note> notesItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,19 @@ public class NotesActivity extends AppCompatActivity {
 
         // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.notesItem);
+
+        // Finding Recycler View
+        RecyclerView rv = findViewById(R.id.rv);
+
+        rv.setLayoutManager(new LinearLayoutManager(NotesActivity.this));
+
+        rv.hasFixedSize();
+
+        notesItems = new ArrayList<>();
+
+        NotesAdapter notesAdapter = new NotesAdapter(NotesActivity.this, notesItems);
+
+        rv.setAdapter(notesAdapter);
 
         floatingAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,12 +85,6 @@ public class NotesActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
-
-
-
 
     }
 }
