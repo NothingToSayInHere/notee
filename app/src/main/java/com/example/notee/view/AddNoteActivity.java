@@ -38,26 +38,30 @@ public class AddNoteActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.addNote(new Note("ze title", "ze content"));
-                Log.d("NotesActivity", "the new note has been added");
-//                String title = titleEditText.getText().toString().trim();
-//                String content = contentEditText.getText().toString().trim();
-//                if (!title.isEmpty() && !content.isEmpty()) {
-//                    Note note = new Note(0, title, content);
-//                    Log.d("NotesActivity", "Adding note: " + note.getTitle() + " - " + note.getContent());
-//                    viewModel.addNoteToDatabase(note);
-//                    // clear the EditText fields to prepare for a new note
-//                    titleEditText.setText("");
-//                    contentEditText.setText("");
-//                } else {
-//                    Toast.makeText(NotesActivity.this, "Please enter a title and content for the note.", Toast.LENGTH_SHORT).show();
-//                }
-                List<Note> notes = db.getAllNotes();
 
-                for (Note n : notes) {
-                    String log = n.getTitle() + n.getContent();
-                    Log.d("note is: ", log);
+                String title = titleEditText.getText().toString().trim();
+                String content = contentEditText.getText().toString().trim();
+                if (!title.isEmpty() && !content.isEmpty()) {
+                    Note note = new Note(0, title, content);
+                    Log.d("NotesActivity", "Adding note: " + note.getTitle() + " - " + note.getContent());
+                    viewModel.addNoteToDatabase(note);
+                    // clear the EditText fields to prepare for a new note
+                    titleEditText.setText("");
+                    contentEditText.setText("");
+                } else {
+                    Toast.makeText(AddNoteActivity.this, "Please enter a title and content for the note.", Toast.LENGTH_SHORT).show();
                 }
+//
+//                db.addNote(new Note("ze title", "ze content"));
+//                Log.d("NotesActivity", "the new note has been added");
+
+//                List<Note> notes = db.getAllNotes();
+//
+//                for (Note n : notes) {
+//                    String log = n.getTitle() + n.getContent();
+//                    Log.d("note is: ", log);
+//                }
+
             }
         });
 
