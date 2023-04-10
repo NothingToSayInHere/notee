@@ -70,7 +70,7 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId()) {
+                switch (item.getItemId()) {
                     case R.id.notesItem:
                         return true;
                     case R.id.shoppingListItem:
