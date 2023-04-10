@@ -1,78 +1,88 @@
 package com.example.notee.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notee.NoteDatabaseHelper;
 import com.example.notee.R;
 import com.example.notee.model.Note;
 import com.example.notee.viewmodel.NoteActivityViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesActivity extends AppCompatActivity {
-
-    private EditText titleEditText;
-    private EditText contentEditText;
-    private Button addButton;
-
-    private NoteActivityViewModel viewModel;
+    FloatingActionButton floatingAddNote;
+    List<Note> notesItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note_list);
-        NoteDatabaseHelper db = new NoteDatabaseHelper(this);
+        setContentView(R.layout.activity_notes);
 
-        viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
+        floatingAddNote = findViewById(R.id.floatingAddNote);
 
-        titleEditText = findViewById(R.id.titleEditText);
-        contentEditText = findViewById(R.id.contentEditText);
-        addButton = findViewById(R.id.addButton);
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.notesItem);
+
+        // Finding Recycler View
+        RecyclerView rv = findViewById(R.id.rv);
+
+        rv.setLayoutManager(new LinearLayoutManager(NotesActivity.this));
+
+        rv.hasFixedSize();
+
+        notesItems = new ArrayList<>();
+
+        NotesAdapter notesAdapter = new NotesAdapter(NotesActivity.this, notesItems);
+
+        rv.setAdapter(notesAdapter);
+
+        floatingAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String title = titleEditText.getText().toString().trim();
-                String content = contentEditText.getText().toString().trim();
-                if (!title.isEmpty() && !content.isEmpty()) {
-                    Note note = new Note(0, title, content);
-                    Log.d("NotesActivity", "Adding note: " + note.getTitle() + " - " + note.getContent());
-                    viewModel.addNoteToDatabase(note);
-                    // clear the EditText fields to prepare for a new note
-                    titleEditText.setText("");
-                    contentEditText.setText("");
-                } else {
-                    Toast.makeText(NotesActivity.this, "Please enter a title and content for the note.", Toast.LENGTH_SHORT).show();
-                }
-
-//                db.addNote(new Note("ze title", "ze content"));
-//                Log.d("NotesActivity", "the new note has been added");
-//
-//                List<Note> notes = db.getAllNotes();
-//
-//                for (Note n : notes) {
-//                    String log = n.getTitle() + n.getContent();
-//                    Log.d("note is: ", log);
-//                }
+                startActivity(new Intent(NotesActivity.this, AddNoteActivity.class));
             }
         });
 
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-
-        // Observe isNoteAdded LiveData
-        viewModel.getIsNoteAdded().observe(this, isNoteAdded -> {
-            if (isNoteAdded) {
-                Toast.makeText(NotesActivity.this, "Note added successfully.", Toast.LENGTH_SHORT).show();
-                viewModel.setIsNoteAdded(false); // reset isNoteAdded to false
+                switch(item.getItemId()) {
+                    case R.id.notesItem:
+                        return true;
+                    case R.id.shoppingListItem:
+                        startActivity(new Intent(getApplicationContext(), ShoppingListActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.profileItem:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
             }
         });
 
