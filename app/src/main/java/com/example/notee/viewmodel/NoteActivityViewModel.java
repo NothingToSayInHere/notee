@@ -12,6 +12,8 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.notee.NoteRepository;
 import com.example.notee.model.Note;
 
+import java.util.List;
+
 public class NoteActivityViewModel extends AndroidViewModel {
     private NoteRepository repository;
     private MutableLiveData<Boolean> isNoteAdded = new MutableLiveData<>(false);
@@ -37,6 +39,9 @@ public class NoteActivityViewModel extends AndroidViewModel {
         }
     }
 
+    public LiveData<List<Note>> getAllNotes() {
+        return repository.getAllNotes();
+    }
 
     public void setIsNoteAdded(boolean value) {
         isNoteAdded.setValue(value);
