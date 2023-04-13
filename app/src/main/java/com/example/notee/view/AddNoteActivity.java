@@ -2,6 +2,8 @@ package com.example.notee.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +17,16 @@ import com.example.notee.R;
 import com.example.notee.model.Note;
 import com.example.notee.viewmodel.NoteActivityViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class AddNoteActivity extends AppCompatActivity {
     private EditText titleEditText;
     private EditText contentEditText;
     private Button addButton;
     private NoteActivityViewModel viewModel;
+    private NotesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,18 @@ public class AddNoteActivity extends AppCompatActivity {
                 viewModel.setIsNoteAdded(false); // reset isNoteAdded to false
             }
         });
-    }
 
+//        // Set up RecyclerView
+//        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        List<Note> notes = new ArrayList<>();
+//        adapter = new NotesAdapter(this, notes);
+//        recyclerView.setAdapter(adapter);
+//
+//        // Observe allNotes LiveData and update adapter
+//        viewModel.getAllNotes().observe(this, noteList -> {
+//            adapter.submitList(notes);
+//        });
+    }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
     private final Context context;
-    private final List<Note> notesList;
+    private List<Note> notesList;
 
     public NotesAdapter(Context context, List<Note> notesList) {
         this.context = context;
@@ -58,4 +58,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         }
     }
 
+    public void submitList(List<Note> noteList) {
+        this.notesList = noteList;
+        notifyDataSetChanged();
+    }
 }

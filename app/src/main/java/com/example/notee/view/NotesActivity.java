@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,12 +33,16 @@ public class NotesActivity extends AppCompatActivity {
     FloatingActionButton floatingAddNote;
     List<Note> notesItems;
 
+    private NoteActivityViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
         floatingAddNote = findViewById(R.id.floatingAddNote);
+
+        viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
 
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -49,13 +54,10 @@ public class NotesActivity extends AppCompatActivity {
         RecyclerView rv = findViewById(R.id.rv);
 
         rv.setLayoutManager(new LinearLayoutManager(NotesActivity.this));
-
         rv.hasFixedSize();
 
         notesItems = new ArrayList<>();
-
         NotesAdapter notesAdapter = new NotesAdapter(NotesActivity.this, notesItems);
-
         rv.setAdapter(notesAdapter);
 
         floatingAddNote.setOnClickListener(new View.OnClickListener() {
@@ -86,5 +88,13 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
 
+        // Observe the LiveData returned by ViewModel
+        viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                // Update the adapter with the new notes list
+                notesAdapter.submitList(notes);
+            }
+        });
     }
 }
