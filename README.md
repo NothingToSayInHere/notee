@@ -1,6 +1,12 @@
 # notee
 An Android app letting the user to take the notes in a safe manner.
 
+## Motivation behind the app
+
+As it has been have figured out, nowadays many people take a lot of notes on their phones as we carry them all the time with us, and we are not an exception.
+However, the applications that are present on, for example, Google Play Store, do not fit our needs, as everyone still can access them once their get access to our phones.
+This is why we have teamed up to create an app that allows our notes to be stored in a safe manner and with the features we want to have.
+
 ## User stories:
 
 - As a user, I want to be able to register so I would be able to access the application’s functionalities
