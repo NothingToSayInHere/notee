@@ -1,42 +1,50 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.AddNoteActivity">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/titleEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="84dp"
         android:hint="Note Title"
-        android:textSize="20sp"
-        android:gravity="center" />
+        android:textSize="14sp"
+        app:fontFamily="@font/lato_regular"
+        app:layout_constraintBottom_toTopOf="@+id/contentEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/contentEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleEditText"
-        android:layout_marginTop="8dp"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="24dp"
         android:hint="Note Content"
-        android:textSize="18sp"
-        android:gravity="center" />
+        android:textSize="14sp"
+        app:fontFamily="@font/lato_regular"
+        app:layout_constraintBottom_toTopOf="@+id/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contentEditText"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Add Note" />
+        android:layout_marginBottom="224dp"
+        android:text="Add Note"
+        android:textSize="14sp"
+        app:fontFamily="@font/lato_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/addButton"/>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
