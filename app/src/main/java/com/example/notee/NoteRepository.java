@@ -40,4 +40,8 @@ public class NoteRepository {
         });
         return notes;
     }
+
+    public void deleteNoteById(int noteID) {
+        databaseHelper.deleteNoteById(noteID);
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
@@ -57,7 +58,30 @@ public class NotesActivity extends AppCompatActivity {
         rv.hasFixedSize();
 
         notesItems = new ArrayList<>();
-        NotesAdapter notesAdapter = new NotesAdapter(NotesActivity.this, notesItems);
+
+        NotesAdapter notesAdapter = new NotesAdapter(this, notesItems, new NotesAdapter.OnNoteItemClickListener() {
+            @Override
+            public void onNoteItemClick(Note note, int position) {
+                if (!notesItems.isEmpty() && position < notesItems.size()) {
+                    Intent intent = new Intent(NotesActivity.this, NoteDetailActivity.class);
+
+                    // put the title and content of the clicked note as extras in the intent
+                    Note clickedNote = notesItems.get(position);
+                    intent.putExtra("title", clickedNote.getTitle());
+                    intent.putExtra("content", clickedNote.getContent());
+                    intent.putExtra("id", clickedNote.getId());
+
+                    startActivity(intent);
+                } else {
+                    Log.e("NotesActivity", "Invalid position: " + position);
+                }
+            }
+        });
+
+        if (notesAdapter == null) {
+            Log.e("NotesActivity", "notesAdapter instance is null");
+        }
+
         rv.setAdapter(notesAdapter);
 
         floatingAddNote.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +115,15 @@ public class NotesActivity extends AppCompatActivity {
         // Observe the LiveData returned by ViewModel
         viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
-            public void onChanged(List<Note> notes) {
-                // Update the adapter with the new notes list
-                notesAdapter.submitList(notes);
+            public void onChanged(@Nullable List<Note> notes) {
+                // Update the notesItems list with the new notes list
+                notesItems.clear();
+                notesItems.addAll(notes);
+
+                // Notify the adapter that the data has changed
+                notesAdapter.notifyDataSetChanged();
             }
         });
+
     }
 }
