@@ -1,41 +1,57 @@
 package com.example.notee.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notee.R;
 import com.example.notee.model.Note;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
     private final Context context;
     private List<Note> notesList;
+    private OnNoteItemClickListener onNoteItemClickListener;
 
-    public NotesAdapter(Context context, List<Note> notesList) {
+    public NotesAdapter(Context context, List<Note> notesList, OnNoteItemClickListener onNoteItemClickListener) {
         this.context = context;
         this.notesList = notesList;
+        this.onNoteItemClickListener = onNoteItemClickListener;
     }
 
     @NonNull
     @Override
     public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.individual_note, parent, false);
 
         return new NotesAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-        holder.noteTitle.setText(notesList.get(position).getTitle());
-        holder.noteContent.setText(notesList.get(position).getContent());
+        holder.noteTitle.setText(notesList.get(holder.getAdapterPosition()).getTitle());
+        holder.noteContent.setText(notesList.get(holder.getAdapterPosition()).getContent());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentPosition = holder.getAdapterPosition();
+                onNoteItemClickListener.onNoteItemClick(getItem(currentPosition), currentPosition);
+            }
+        });
+    }
+
+
+    public Note getItem(int position) {
+        return notesList.get(position);
     }
 
     @Override
@@ -43,23 +59,24 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return notesList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        // Declare instance variables for the note card
-        MaterialCardView noteCard;
-        MaterialTextView noteTitle, noteContent;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        // Declare instance variables for the note layout
+        TextView noteTitle, noteContent;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            // Find views in the card
-            noteCard = itemView.findViewById(R.id.noteCard);
-            noteTitle = itemView.findViewById(R.id.noteTitle);
-            noteContent = itemView.findViewById(R.id.noteContent);
+            noteTitle = itemView.findViewById(R.id.titleEditText);
+            noteContent = itemView.findViewById(R.id.content);
         }
     }
 
-    public void submitList(List<Note> noteList) {
-        this.notesList = noteList;
-        notifyDataSetChanged();
+//    public void submitList(List<Note> noteList) {
+//        this.notesList = noteList;
+//        notifyDataSetChanged();
+//    }
+
+    public interface OnNoteItemClickListener {
+        void onNoteItemClick(Note note, int position);
     }
 }

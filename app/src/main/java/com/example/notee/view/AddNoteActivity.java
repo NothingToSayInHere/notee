@@ -66,7 +66,7 @@ public class AddNoteActivity extends AppCompatActivity {
 //                    String log = n.getTitle() + n.getContent();
 //                    Log.d("note is: ", log);
 //                }
-
+                finish();
             }
         });
 
