@@ -35,6 +35,7 @@ public class NotesActivity extends AppCompatActivity {
     List<Note> notesItems;
 
     private NoteActivityViewModel viewModel;
+    private NotesAdapter notesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class NotesActivity extends AppCompatActivity {
 
         notesItems = new ArrayList<>();
 
-        NotesAdapter notesAdapter = new NotesAdapter(this, notesItems, new NotesAdapter.OnNoteItemClickListener() {
+        notesAdapter = new NotesAdapter(this, notesItems, new NotesAdapter.OnNoteItemClickListener() {
             @Override
             public void onNoteItemClick(Note note, int position) {
                 if (!notesItems.isEmpty() && position < notesItems.size()) {
@@ -101,21 +102,25 @@ public class NotesActivity extends AppCompatActivity {
                         return true;
                     case R.id.shoppingListItem:
                         startActivity(new Intent(getApplicationContext(), ShoppingListActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.profileItem:
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         // Observe the LiveData returned by ViewModel
         viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
-            public void onChanged(@Nullable List<Note> notes) {
+            public void onChanged(List<Note> notes) {
                 // Update the notesItems list with the new notes list
                 notesItems.clear();
                 notesItems.addAll(notes);
@@ -124,6 +129,5 @@ public class NotesActivity extends AppCompatActivity {
                 notesAdapter.notifyDataSetChanged();
             }
         });
-
     }
 }
