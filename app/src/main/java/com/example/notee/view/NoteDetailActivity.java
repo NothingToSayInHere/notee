@@ -66,7 +66,6 @@ public class NoteDetailActivity extends AppCompatActivity {
                 // Show the "save" button and hide the "edit" button
                 btnSave.setVisibility(View.VISIBLE);
                 btnEdit.setVisibility(View.GONE);
-                finish();
             }
         });
 
@@ -75,11 +74,11 @@ public class NoteDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Save the changes to the note
-                NoteDatabaseHelper databaseHelper = new NoteDatabaseHelper(NoteDetailActivity.this);
+                //NoteDatabaseHelper databaseHelper = new NoteDatabaseHelper(NoteDetailActivity.this);
                 String newTitle = editTitle.getText().toString();
                 String newContent = editContent.getText().toString();
                 Note note = new Note(noteID, newTitle, newContent);
-                databaseHelper.updateNote(note);
+                viewModel.updateNote(note);
 
                 // Disable the fields again
                 editTitle.setEnabled(false);
@@ -88,6 +87,7 @@ public class NoteDetailActivity extends AppCompatActivity {
                 // Hide the "save" button and show the "edit" button
                 btnSave.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.VISIBLE);
+                finish();
             }
         });
     }
