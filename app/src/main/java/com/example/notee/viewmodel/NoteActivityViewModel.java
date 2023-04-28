@@ -44,10 +44,11 @@ public class NoteActivityViewModel extends AndroidViewModel {
 
     public void deleteNoteById(int noteID) {
         repository.deleteNoteById(noteID);
-
     }
 
-
+    public void updateNote(Note note) {
+        repository.updateNote(note);
+    }
 
     public LiveData<List<Note>> getAllNotes() {
         return repository.getAllNotes();
