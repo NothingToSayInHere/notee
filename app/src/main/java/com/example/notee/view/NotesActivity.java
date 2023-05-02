@@ -64,7 +64,7 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             public void onNoteItemClick(Note note, int position) {
                 if (!notesItems.isEmpty() && position < notesItems.size()) {
-                    Intent intent = new Intent(NotesActivity.this, NoteDetailActivity.class);
+                    Intent intent = new Intent(NotesActivity.this, NoteDetailsActivity.class);
 
                     // put the title and content of the clicked note as extras in the intent
                     Note clickedNote = notesItems.get(position);

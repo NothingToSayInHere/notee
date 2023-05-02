@@ -8,12 +8,11 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.notee.NoteDatabaseHelper;
 import com.example.notee.R;
 import com.example.notee.model.Note;
 import com.example.notee.viewmodel.NoteActivityViewModel;
 
-public class NoteDetailActivity extends AppCompatActivity {
+public class NoteDetailsActivity extends AppCompatActivity {
 
     EditText editTitle, editContent;
     Button btnDelete, btnEdit, btnSave;
@@ -23,7 +22,7 @@ public class NoteDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.note_layout);
+        setContentView(R.layout.activity_note_details);
 
         viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
 
