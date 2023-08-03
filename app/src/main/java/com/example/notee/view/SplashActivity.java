@@ -7,21 +7,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.notee.R;
 
 public class SplashActivity extends AppCompatActivity {
-    private static final long SPLASH_SCREEN_DURATION = 2000; // 2 seconds
+
+    private static final long SPLASH_SCREEN_DURATION = 2000; // Two seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splash);
 
-        // Wait for a few seconds and then navigate to the main activity
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish(); // Finish this activity so it would not be in the back stack
-            }
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+
+            startActivity(intent);
+
+            finish();
         }, SPLASH_SCREEN_DURATION);
     }
 }
