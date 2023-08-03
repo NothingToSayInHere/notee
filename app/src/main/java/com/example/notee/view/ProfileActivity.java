@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
-    private static final String TAG = ".view.ProfileActivity";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     BottomNavigationView bottomNavigationView;
@@ -66,9 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        logoutButton.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-        });
+        logoutButton.setOnClickListener(v -> FirebaseAuth.getInstance().signOut());
 
         // Getting the user from Firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

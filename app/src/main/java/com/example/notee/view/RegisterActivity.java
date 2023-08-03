@@ -41,12 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerProgressBar = findViewById(R.id.registerProgressBar);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
+        registerButton.setOnClickListener(v -> registerUser());
     }
 
     private void registerUser() {

@@ -18,7 +18,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     private TextInputEditText emailField;
     private ProgressBar forgotPasswordProgressBar;
-    private MaterialButton resetPasswordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.emailField);
-        resetPasswordButton = findViewById(R.id.resetPasswordButton);
+        MaterialButton resetPasswordButton = findViewById(R.id.resetPasswordButton);
         forgotPasswordProgressBar = findViewById(R.id.forgotPasswordProgressBar);
 
         resetPasswordButton.setOnClickListener(view -> resetPassword());

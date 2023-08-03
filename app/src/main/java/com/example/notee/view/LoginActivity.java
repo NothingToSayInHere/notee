@@ -20,15 +20,13 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText emailField, passwordField;
     private ProgressBar loginProgressBar;
 
-    private MaterialButton forgotPasswordButton, loginButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
-        loginButton = findViewById(R.id.loginButton);
+        MaterialButton forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
+        MaterialButton loginButton = findViewById(R.id.loginButton);
 
         // Adding ForgotPasswordActivity to be viewed when clicked on the button
         forgotPasswordButton.setOnClickListener(view -> startActivity(new Intent(
