@@ -8,7 +8,7 @@ import com.example.notee.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final long SPLASH_SCREEN_DURATION = 2000; // Two seconds
+    private static final long SPLASH_SCREEN_DURATION = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
