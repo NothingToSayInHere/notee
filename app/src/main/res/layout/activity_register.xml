@@ -27,9 +27,9 @@
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/first_name"
+        android:inputType="textAutoComplete"
         android:minHeight="48dp"
         android:textSize="14sp"
-        android:inputType="textAutoComplete"
         app:fontFamily="@font/lato_regular"
         app:layout_constraintBottom_toTopOf="@+id/emailField"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,14 +70,14 @@
         android:id="@+id/registerButton"
         android:layout_width="320dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="224dp"
         android:text="@string/register"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="DuplicateSpeakableTextCheck"
-        android:layout_marginBottom="224dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <ProgressBar
         android:id="@+id/registerProgressBar"

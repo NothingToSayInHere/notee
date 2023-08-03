@@ -6,14 +6,14 @@
     tools:context=".view.AddNoteActivity">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/titleEditText"
+        android:id="@+id/title"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginTop="84dp"
-        android:hint="Note Title"
+        android:hint="@string/title"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/contentEditText"
+        app:layout_constraintBottom_toTopOf="@+id/content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,20 +21,20 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/contentEditText"
+        android:id="@+id/content"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginBottom="24dp"
-        android:hint="Note Content"
+        android:hint="@string/content"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/addButton"
+        app:layout_constraintBottom_toTopOf="@+id/add_note_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addButton"
+        android:id="@+id/add_note_button"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
