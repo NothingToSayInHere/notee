@@ -33,11 +33,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                         return true;
                     case R.id.notesItem:
                         startActivity(new Intent(getApplicationContext(), NotesActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.profileItem:
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;

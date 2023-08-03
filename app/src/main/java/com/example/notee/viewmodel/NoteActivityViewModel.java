@@ -14,8 +14,8 @@ import com.example.notee.model.Note;
 import java.util.List;
 
 public class NoteActivityViewModel extends AndroidViewModel {
-    private NoteRepository repository;
-    private MutableLiveData<Boolean> isNoteAdded = new MutableLiveData<>(false);
+    private final NoteRepository repository;
+    private final MutableLiveData<Boolean> isNoteAdded = new MutableLiveData<>(false);
 
     public NoteActivityViewModel(@NonNull Application application) {
         super(application);
@@ -26,8 +26,6 @@ public class NoteActivityViewModel extends AndroidViewModel {
         return isNoteAdded;
     }
 
-
-
     public void addNoteToDatabase(Note note) {
         Log.d("NoteActivityViewModel", "addNoteToDatabase() method called");
         if (note == null) {
@@ -36,9 +34,9 @@ public class NoteActivityViewModel extends AndroidViewModel {
         if (repository != null) {
 
             repository.addNoteToDatabase(note);
-                repository.getAllNotes();
+            repository.getAllNotes();
             isNoteAdded.setValue(true);
-            Log.d("NoteActivityViewModel", "Note added to database: " + note.toString());
+            Log.d("NoteActivityViewModel", "Note added to database: " + note);
         }
     }
 

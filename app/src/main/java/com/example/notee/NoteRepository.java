@@ -1,6 +1,5 @@
 package com.example.notee;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,9 +14,8 @@ import java.util.concurrent.Executors;
 
 public class NoteRepository {
 
-    private NoteDatabaseHelper databaseHelper;
-    private ExecutorService executor;
-
+    private final NoteDatabaseHelper databaseHelper;
+    private final ExecutorService executor;
 
     public NoteRepository(Context context) {
         Log.d("NoteRepository", "Creating new instance of NoteDatabaseHelper in constructor");
@@ -27,9 +25,7 @@ public class NoteRepository {
 
     public void addNoteToDatabase(Note note) {
         Log.d("NoteRepository", "addNoteToDatabase() method in NoteRepository called");
-        executor.execute(() -> {
-            databaseHelper.addNote(note);
-        });
+        executor.execute(() -> databaseHelper.addNote(note));
     }
 
     public LiveData<List<Note>> getAllNotes() {
