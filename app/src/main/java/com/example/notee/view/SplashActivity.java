@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.notee.R;
 
 public class SplashActivity extends AppCompatActivity {
-
     private static final long SPLASH_SCREEN_DURATION = 2000;
 
     @Override

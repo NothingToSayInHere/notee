@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Find the elements in the view
-        MaterialButton loginButton = findViewById(R.id.loginButton);
-        MaterialButton registerButton = findViewById(R.id.registerButton);
+        MaterialButton loginButton = findViewById(R.id.login_button);
+        MaterialButton registerButton = findViewById(R.id.register_button);
 
         // Add a click listener to loginButton to forward user to LoginActivity
         loginButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));

@@ -1,12 +1,10 @@
 package com.example.notee.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -33,36 +31,33 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         // Initialize and assign variable
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Set profile item selected
-        bottomNavigationView.setSelectedItemId(R.id.profileItem);
+        bottomNavigationView.setSelectedItemId(R.id.profile_item);
 
-        logoutButton = findViewById(R.id.logoutButton);
-        deleteProfileButton = findViewById(R.id.deleteProfileButton);
-        deleteProfileProgressBar = findViewById(R.id.deleteProfileProgressBar);
+        logoutButton = findViewById(R.id.logout_button);
+        deleteProfileButton = findViewById(R.id.delete_profile_button);
+        deleteProfileProgressBar = findViewById(R.id.delete_profile_progress_bar);
 
         setupFirebaseListener();
 
         // Perform item selected listener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
 
-                switch (item.getItemId()) {
-                    case R.id.profileItem:
-                        return true;
-                    case R.id.shoppingListItem:
-                        startActivity(new Intent(getApplicationContext(), ShoppingListActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.notesItem:
-                        startActivity(new Intent(getApplicationContext(), NotesActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
+            switch (item.getItemId()) {
+                case R.id.profile_item:
+                    return true;
+                case R.id.shopping_list_item:
+                    startActivity(new Intent(getApplicationContext(), ShoppingListActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.notes_item:
+                    startActivity(new Intent(getApplicationContext(), NotesActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
             }
+            return false;
         });
 
         logoutButton.setOnClickListener(v -> FirebaseAuth.getInstance().signOut());
@@ -108,13 +103,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void setupFirebaseListener() {
         mAuthStateListener = firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null) {
-                // Displays all the data
-            } else {
-                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         };
     }
 

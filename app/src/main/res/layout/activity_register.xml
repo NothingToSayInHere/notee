@@ -7,7 +7,7 @@
     tools:context=".view.RegisterActivity">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/registerTitle"
+        android:id="@+id/register_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -16,13 +16,13 @@
         android:textAlignment="center"
         android:textSize="30sp"
         app:fontFamily="@font/roboto_regular"
-        app:layout_constraintBottom_toTopOf="@+id/firstNameField"
+        app:layout_constraintBottom_toTopOf="@+id/first_name_field"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.176" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/firstNameField"
+        android:id="@+id/first_name_field"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
@@ -31,13 +31,13 @@
         android:minHeight="48dp"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/emailField"
+        app:layout_constraintBottom_toTopOf="@+id/email_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/emailField"
+        android:id="@+id/email_field"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
@@ -46,13 +46,13 @@
         android:minHeight="48dp"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/passwordField"
+        app:layout_constraintBottom_toTopOf="@+id/password_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/passwordField"
+        android:id="@+id/password_field"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginBottom="24dp"
@@ -61,13 +61,13 @@
         android:minHeight="48dp"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        app:layout_constraintBottom_toTopOf="@+id/register_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/registerButton"
+        android:id="@+id/register_button"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginBottom="224dp"
@@ -80,7 +80,7 @@
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <ProgressBar
-        android:id="@+id/registerProgressBar"
+        android:id="@+id/register_progress_bar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -25,8 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        MaterialButton forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
-        MaterialButton loginButton = findViewById(R.id.loginButton);
+        MaterialButton forgotPasswordButton = findViewById(R.id.forgot_password_button);
+        MaterialButton loginButton = findViewById(R.id.login_button);
 
         // Adding ForgotPasswordActivity to be viewed when clicked on the button
         forgotPasswordButton.setOnClickListener(view -> startActivity(new Intent(
@@ -35,12 +35,12 @@ public class LoginActivity extends AppCompatActivity {
         // Get the Firebase instance
         mAuth = FirebaseAuth.getInstance();
 
-        emailField = findViewById(R.id.emailField);
-        passwordField = findViewById(R.id.passwordField);
+        emailField = findViewById(R.id.email_field);
+        passwordField = findViewById(R.id.password_field);
 
         loginButton.setOnClickListener(view -> userLogin());
 
-        loginProgressBar = findViewById(R.id.loginProgressBar);
+        loginProgressBar = findViewById(R.id.login_progress_bar);
     }
 
     private void userLogin() {

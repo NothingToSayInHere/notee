@@ -13,7 +13,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class NoteRepository {
-
     private final NoteDatabaseHelper databaseHelper;
     private final ExecutorService executor;
 

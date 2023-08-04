@@ -6,13 +6,13 @@
     tools:context=".view.NotesActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingAddNote"
+        android:id="@+id/floating_add_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginBottom="28dp"
-        android:contentDescription="FAB"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        android:contentDescription="@string/fab"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/baseline_add_24" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -31,11 +31,11 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etSearch"
+        android:id="@+id/et_search"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginTop="24dp"
-        android:hint="Search by title..."
+        android:hint="@string/search_by_title"
         android:imeOptions="actionDone"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,14 +46,14 @@
         android:id="@+id/rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="Recycler View"
+        android:contentDescription="@string/recycler_view"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

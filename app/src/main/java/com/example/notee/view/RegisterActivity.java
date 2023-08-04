@@ -33,13 +33,13 @@ public class RegisterActivity extends AppCompatActivity {
         // Getting the instance of the Firebase documentation: https://firebase.google.com/docs/auth/android/password-auth#create_a_password-based_account
         mAuth = FirebaseAuth.getInstance();
 
-        registerButton = findViewById(R.id.registerButton);
+        registerButton = findViewById(R.id.register_button);
 
-        firstNameField = findViewById(R.id.firstNameField);
-        emailField = findViewById(R.id.emailField);
-        passwordField = findViewById(R.id.passwordField);
+        firstNameField = findViewById(R.id.first_name_field);
+        emailField = findViewById(R.id.email_field);
+        passwordField = findViewById(R.id.password_field);
 
-        registerProgressBar = findViewById(R.id.registerProgressBar);
+        registerProgressBar = findViewById(R.id.register_progress_bar);
 
         registerButton.setOnClickListener(v -> registerUser());
     }

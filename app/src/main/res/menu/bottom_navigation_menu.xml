@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/notesItem"
+        android:id="@+id/notes_item"
         android:enabled="true"
-        android:title="Notes"
+        android:title="@string/notes"
         android:icon="@drawable/baseline_notes_24" />
     <item
-        android:id="@+id/shoppingListItem"
+        android:id="@+id/shopping_list_item"
         android:enabled="true"
-        android:title="Shopping List"
+        android:title="@string/shopping_list"
         android:icon="@drawable/baseline_shopping_cart_24" />
 
     <item
-        android:id="@+id/profileItem"
+        android:id="@+id/profile_item"
         android:enabled="true"
-        android:title="Profile"
+        android:title="@string/profile"
         android:icon="@drawable/baseline_person_24" />
-
 </menu>

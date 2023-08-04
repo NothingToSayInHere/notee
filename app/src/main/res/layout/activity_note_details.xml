@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:hint="Note title"
+        android:hint="@string/title"
         android:inputType="text"
         android:minHeight="48dp" />
 
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:hint="Note content"
+        android:hint="@string/content"
         android:inputType="textMultiLine"
         android:minHeight="48dp" />
 
@@ -30,7 +30,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_delete"
+            android:id="@+id/delete_note_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -38,7 +38,7 @@
             android:text="@string/delete_note" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_edit"
+            android:id="@+id/edit_note_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -46,7 +46,7 @@
             android:text="@string/edit_note" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save"
+            android:id="@+id/save_note_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
