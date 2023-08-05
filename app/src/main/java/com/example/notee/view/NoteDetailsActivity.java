@@ -65,8 +65,9 @@ public class NoteDetailsActivity extends AppCompatActivity {
         saveNoteButton.setOnClickListener(v -> {
             // Save the changes to the note
             //NoteDatabaseHelper databaseHelper = new NoteDatabaseHelper(NoteDetailActivity.this);
-            String newTitle = editTitle.getText().toString();
-            String newContent = editContent.getText().toString();
+            String newTitle = editTitle.getText() != null ? editTitle.getText().toString() : "";
+            String newContent = editContent.getText() != null ? editContent.getText().toString() : "";
+
             Note note = new Note(noteId, newTitle, newContent);
             viewModel.updateNote(note);
 
