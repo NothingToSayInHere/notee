@@ -30,14 +30,13 @@
         android:id="@+id/login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
-        android:minHeight="48dp"
+        android:layout_marginTop="150dp"
         android:text="@string/login"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="45sp"
         app:fontFamily="@font/roboto_regular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/email_layout"
+        app:layout_constraintStart_toStartOf="@+id/email_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
