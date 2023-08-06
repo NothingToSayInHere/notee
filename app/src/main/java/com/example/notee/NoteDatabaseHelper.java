@@ -16,7 +16,6 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "notes_db";
     private static final String TABLE_NOTES = "notes";
-
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_NOTE_TEXT = "note_text";
