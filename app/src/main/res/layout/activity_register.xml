@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.RegisterActivity">
+    android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/register_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:minHeight="48dp"
@@ -16,68 +14,91 @@
         android:textAlignment="center"
         android:textSize="30sp"
         app:fontFamily="@font/roboto_regular"
-        app:layout_constraintBottom_toTopOf="@+id/first_name_field"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/first_name_field"
-        android:layout_width="320dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/first_name"
-        android:inputType="textAutoComplete"
-        android:minHeight="48dp"
-        android:textSize="14sp"
-        app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/email_field"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/first_name_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_title"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintWidth_max="320dp"
+        app:layout_constraintWidth_min="280dp">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email_field"
-        android:layout_width="320dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:textSize="14sp"
-        app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/password_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/first_name_field"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/first_name"
+            android:inputType="textAutoComplete"
+            android:textSize="14sp"
+            app:fontFamily="@font/lato_regular" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password_field"
-        android:layout_width="320dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="24dp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:textSize="14sp"
-        app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toTopOf="@+id/register_button"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/first_name_layout"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintWidth_max="320dp"
+        app:layout_constraintWidth_min="280dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_field"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textSize="14sp"
+            app:fontFamily="@font/lato_regular" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_layout"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintWidth_max="320dp"
+        app:layout_constraintWidth_min="280dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_field"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textSize="14sp"
+            app:fontFamily="@font/lato_regular" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register_button"
-        android:layout_width="320dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="224dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp"
         android:text="@string/register"
         android:textSize="14sp"
         app:fontFamily="@font/lato_regular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="DuplicateSpeakableTextCheck" />
+        app:layout_constraintEnd_toEndOf="@+id/password_layout"
+        app:layout_constraintStart_toStartOf="@+id/password_layout"
+        app:layout_constraintTop_toBottomOf="@id/password_layout" />
 
     <ProgressBar
         android:id="@+id/register_progress_bar"
