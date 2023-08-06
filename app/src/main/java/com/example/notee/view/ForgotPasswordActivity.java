@@ -14,7 +14,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    // Instance variable from Firebase documentation
     FirebaseAuth mAuth;
     private TextInputEditText emailField;
     private ProgressBar forgotPasswordProgressBar;
@@ -24,7 +23,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        // Get the Firebase instance
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.email_field);
@@ -35,7 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void resetPassword() {
-        String emailString = emailField.getText().toString().trim();
+        String emailString = emailField.getText() != null ? emailField.getText().toString().trim() : "";
 
         if (emailString.isEmpty()) {
             emailField.setError("Email is required");
@@ -51,8 +49,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         forgotPasswordProgressBar.setVisibility(View.VISIBLE);
 
-        // Sending a password reset email from Firebase documentation:
-        // https://firebase.google.com/docs/auth/android/manage-users#send_a_password_reset_email
         mAuth.sendPasswordResetEmail(emailString).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(ForgotPasswordActivity.this, "Check your email to reset your password!",
