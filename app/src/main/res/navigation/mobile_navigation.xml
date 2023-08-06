@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_notes">
+
+    <activity
+        android:id="@+id/navigation_notes"
+        android:name="com.example.notee.view.NotesActivity"
+        android:label="Notes" />
+
+    <activity
+        android:id="@+id/navigation_shopping_list"
+        android:name="com.example.notee.view.ShoppingListActivity"
+        android:label="Shopping List" />
+
+    <activity
+        android:id="@+id/navigation_profile"
+        android:name="com.example.notee.view.ProfileActivity"
+        android:label="Profile" />
+
+</navigation>
