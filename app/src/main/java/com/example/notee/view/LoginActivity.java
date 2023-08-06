@@ -15,7 +15,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
-    // Instance variable from Firebase documentation
     private FirebaseAuth mAuth;
     private TextInputEditText emailField, passwordField;
     private ProgressBar loginProgressBar;
@@ -28,11 +27,9 @@ public class LoginActivity extends AppCompatActivity {
         MaterialButton forgotPasswordButton = findViewById(R.id.forgot_password_button);
         MaterialButton loginButton = findViewById(R.id.login_button);
 
-        // Adding ForgotPasswordActivity to be viewed when clicked on the button
         forgotPasswordButton.setOnClickListener(view -> startActivity(new Intent(
                 LoginActivity.this, ForgotPasswordActivity.class)));
 
-        // Get the Firebase instance
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.email_field);
@@ -44,10 +41,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void userLogin() {
-        String emailString = emailField.getText().toString().trim();
-        String passwordString = passwordField.getText().toString().trim();
+        String emailString = emailField.getText() != null ? emailField.getText().toString().trim() : "";
+        String passwordString = passwordField.getText() != null ? passwordField.getText().toString().trim() : "";
 
-        // Validating the data
         if (emailString.isEmpty()) {
             emailField.setError("Email is required");
             emailField.requestFocus();
@@ -74,14 +70,10 @@ public class LoginActivity extends AppCompatActivity {
 
         loginProgressBar.setVisibility(View.VISIBLE);
 
-        // Retrieving login details and logging in user:
-        // https://firebase.google.com/docs/auth/android/password-auth#sign_in_a_user_with_an_email_address_and_password
         mAuth.signInWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                // Redirect to NotesActivity
                 startActivity(new Intent(LoginActivity.this, NotesActivity.class));
             } else {
-                // Show a toast that the login attempt has not been successful
                 Toast.makeText(LoginActivity.this,
                         "Failed to log in. Please check your credentials.",
                         Toast.LENGTH_LONG).show();
