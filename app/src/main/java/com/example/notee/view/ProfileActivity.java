@@ -19,9 +19,6 @@ import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-
-    BottomNavigationView bottomNavigationView;
-
     MaterialButton logoutButton, deleteProfileButton;
     ProgressBar deleteProfileProgressBar;
 
@@ -30,42 +27,16 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Initialize and assign variable
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        // Set profile item selected
-        bottomNavigationView.setSelectedItemId(R.id.profile_item);
-
         logoutButton = findViewById(R.id.logout_button);
         deleteProfileButton = findViewById(R.id.delete_profile_button);
         deleteProfileProgressBar = findViewById(R.id.delete_profile_progress_bar);
 
         setupFirebaseListener();
 
-        // Perform item selected listener
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-
-            switch (item.getItemId()) {
-                case R.id.profile_item:
-                    return true;
-                case R.id.shopping_list_item:
-                    startActivity(new Intent(getApplicationContext(), ShoppingListActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                case R.id.notes_item:
-                    startActivity(new Intent(getApplicationContext(), NotesActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-            }
-            return false;
-        });
-
         logoutButton.setOnClickListener(v -> FirebaseAuth.getInstance().signOut());
 
-        // Getting the user from Firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Deleting a user from database
         deleteProfileButton.setOnClickListener(v -> {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ProfileActivity.this);
             dialog.setTitle("Are you sure?");
@@ -96,6 +67,24 @@ public class ProfileActivity extends AppCompatActivity {
 
             AlertDialog alertDialog = dialog.create();
             alertDialog.show();
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.navigation_notes) {
+                startActivity(new Intent(this, NotesActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.navigation_shopping_list) {
+                startActivity(new Intent(this, ShoppingListActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else return item.getItemId() == R.id.navigation_profile;
         });
 
     }

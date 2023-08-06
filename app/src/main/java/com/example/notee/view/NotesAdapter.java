@@ -1,11 +1,8 @@
 package com.example.notee.view;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,12 +14,10 @@ import com.example.notee.model.Note;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-    private final Context context;
-    private List<Note> notesList;
-    private OnNoteItemClickListener onNoteItemClickListener;
+    private final List<Note> notesList;
+    private final OnNoteItemClickListener onNoteItemClickListener;
 
-    public NotesAdapter(Context context, List<Note> notesList, OnNoteItemClickListener onNoteItemClickListener) {
-        this.context = context;
+    public NotesAdapter(List<Note> notesList, OnNoteItemClickListener onNoteItemClickListener) {
         this.notesList = notesList;
         this.onNoteItemClickListener = onNoteItemClickListener;
     }
@@ -30,9 +25,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @NonNull
     @Override
     public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.individual_note, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note, parent, false);
 
-        return new NotesAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -40,15 +35,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.noteTitle.setText(notesList.get(holder.getAdapterPosition()).getTitle());
         holder.noteContent.setText(notesList.get(holder.getAdapterPosition()).getContent());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentPosition = holder.getAdapterPosition();
-                onNoteItemClickListener.onNoteItemClick(getItem(currentPosition), currentPosition);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            onNoteItemClickListener.onNoteItemClick(getItem(currentPosition), currentPosition);
         });
     }
-
 
     public Note getItem(int position) {
         return notesList.get(position);
@@ -59,22 +50,23 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return notesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void updateData(List<Note> newData) {
+        notesList.clear();
+        notesList.addAll(newData);
+        notifyDataSetChanged();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         // Declare instance variables for the note layout
         TextView noteTitle, noteContent;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            noteTitle = itemView.findViewById(R.id.titleEditText);
-            noteContent = itemView.findViewById(R.id.content);
+            noteTitle = itemView.findViewById(R.id.displayed_note_title);
+            noteContent = itemView.findViewById(R.id.displayed_note_content);
         }
     }
-
-//    public void submitList(List<Note> noteList) {
-//        this.notesList = noteList;
-//        notifyDataSetChanged();
-//    }
 
     public interface OnNoteItemClickListener {
         void onNoteItemClick(Note note, int position);
