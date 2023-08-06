@@ -48,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(ProfileActivity.this, "Account successfully deleted!",
                                 Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut(); // Sign out after profile deletion
                         Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -58,9 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                         deleteProfileProgressBar.setVisibility(View.GONE);
                     }
-
                 });
-
             });
 
             dialog.setNegativeButton("Dismiss", (dialog12, which) -> dialog12.dismiss());
@@ -92,21 +91,31 @@ public class ProfileActivity extends AppCompatActivity {
     private void setupFirebaseListener() {
         mAuthStateListener = firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
-            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            if (user == null) {
+                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
         };
     }
 
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
     }
 
     @Override
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
+        if (mAuthStateListener != null) {
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         if (mAuthStateListener != null) {
             FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
         }
