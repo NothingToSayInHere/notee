@@ -36,8 +36,8 @@ public class NoteRepository {
         return notes;
     }
 
-    public void deleteNoteById(int noteID) {
-        databaseHelper.deleteNoteById(noteID);
+    public void deleteNoteById(int noteId) {
+        databaseHelper.deleteNoteById(noteId);
     }
 
     public void updateNote(Note note) {
