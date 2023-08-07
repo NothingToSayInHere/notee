@@ -37,9 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"
-            android:exported="false">
-        </activity>
-
+            android:exported="false" />
         <activity
             android:name=".view.SplashActivity"
             android:exported="true">
@@ -49,7 +47,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
