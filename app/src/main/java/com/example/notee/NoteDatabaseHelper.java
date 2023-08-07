@@ -49,11 +49,9 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE_TEXT, note.getContent());
-
         Log.v("NoteDatabaseHelper", "Adding note to database: " + note.getTitle());
         db.insert(TABLE_NOTES, null, values);
         db.close();
-
         Log.v("NoteDatabaseHelper", "Note added to database: " + note.getTitle());
     }
 
@@ -88,12 +86,12 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
         return noteList;
     }
 
-    public void updateNote(Note note) {
+    public int updateNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE_TEXT, note.getContent());
-        db.update(TABLE_NOTES, values, KEY_ID + " = ?",
+        return db.update(TABLE_NOTES, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(note.getId())});
     }
 

@@ -1,5 +1,6 @@
 package com.example.notee.view;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,12 @@ import com.example.notee.model.Note;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-    private final List<Note> notesList;
-    private final OnNoteItemClickListener onNoteItemClickListener;
+    private final Context context;
+    private List<Note> notesList;
+    private OnNoteItemClickListener onNoteItemClickListener;
 
-    public NotesAdapter(List<Note> notesList, OnNoteItemClickListener onNoteItemClickListener) {
+    public NotesAdapter(Context context, List<Note> notesList, OnNoteItemClickListener onNoteItemClickListener) {
+        this.context = context;
         this.notesList = notesList;
         this.onNoteItemClickListener = onNoteItemClickListener;
     }
@@ -25,9 +28,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @NonNull
     @Override
     public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.individual_note, parent, false);
 
-        return new ViewHolder(view);
+        return new NotesAdapter.ViewHolder(view);
     }
 
     @Override
@@ -50,21 +53,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return notesList.size();
     }
 
-    public void updateData(List<Note> newData) {
-        notesList.clear();
-        notesList.addAll(newData);
-        notifyDataSetChanged();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // Declare instance variables for the note layout
         TextView noteTitle, noteContent;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            noteTitle = itemView.findViewById(R.id.displayed_note_title);
-            noteContent = itemView.findViewById(R.id.displayed_note_content);
+            noteTitle = itemView.findViewById(R.id.titleEditText);
+            noteContent = itemView.findViewById(R.id.content);
         }
     }
 

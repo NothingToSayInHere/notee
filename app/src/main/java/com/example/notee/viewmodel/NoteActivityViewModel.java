@@ -40,8 +40,8 @@ public class NoteActivityViewModel extends AndroidViewModel {
         }
     }
 
-    public void deleteNoteById(int noteId) {
-        repository.deleteNoteById(noteId);
+    public void deleteNoteById(int noteID) {
+        repository.deleteNoteById(noteID);
     }
 
     public void updateNote(Note note) {

@@ -3,9 +3,10 @@ package com.example.notee.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.inputmethod.EditorInfo;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +16,6 @@ import com.example.notee.model.Note;
 import com.example.notee.viewmodel.NoteActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,57 +25,50 @@ public class NotesActivity extends AppCompatActivity {
     List<Note> notesItems;
     private NoteActivityViewModel viewModel;
     private NotesAdapter notesAdapter;
-    private List<Note> originalNotesItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
-
         floatingAddNote = findViewById(R.id.floating_add_note);
-
         viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
 
-        originalNotesItems = new ArrayList<>();
-
-        TextInputEditText etSearch = findViewById(R.id.et_search);
-        etSearch.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                CharSequence text = etSearch.getText();
-                String searchText = text != null ? text.toString().trim() : "";
-
-                performSearch(searchText);
-                return true;
-            }
-            return false;
-        });
-
+        // Finding Recycler View
         RecyclerView rv = findViewById(R.id.rv);
-
         rv.setLayoutManager(new LinearLayoutManager(NotesActivity.this));
         rv.hasFixedSize();
 
         notesItems = new ArrayList<>();
 
-        notesAdapter = new NotesAdapter(notesItems, (note, position) -> {
-            if (!notesItems.isEmpty() && position < notesItems.size()) {
-                Intent intent = new Intent(NotesActivity.this, NoteDetailsActivity.class);
-
-                // put the title and content of the clicked note as extras in the intent
-                Note clickedNote = notesItems.get(position);
-                intent.putExtra("title", clickedNote.getTitle());
-                intent.putExtra("content", clickedNote.getContent());
-                intent.putExtra("id", clickedNote.getId());
-
-                startActivity(intent);
-            } else {
-                Log.e("NotesActivity", "Invalid position: " + position);
+        notesAdapter = new NotesAdapter(this, notesItems, new NotesAdapter.OnNoteItemClickListener() {
+            @Override
+            public void onNoteItemClick(Note note, int position) {
+                if (!notesItems.isEmpty() && position < notesItems.size()) {
+                    Intent intent = new Intent(NotesActivity.this, NoteDetailsActivity.class);
+                    // put the title and content of the clicked note as extras in the intent
+                    Note clickedNote = notesItems.get(position);
+                    intent.putExtra("title", clickedNote.getTitle());
+                    intent.putExtra("content", clickedNote.getContent());
+                    intent.putExtra("id", clickedNote.getId());
+                    startActivity(intent);
+                } else {
+                    Log.e("NotesActivity", "Invalid position: " + position);
+                }
             }
         });
 
+        if (notesAdapter == null) {
+            Log.e("NotesActivity", "notesAdapter instance is null");
+        }
+
         rv.setAdapter(notesAdapter);
 
-        floatingAddNote.setOnClickListener(v -> startActivity(new Intent(NotesActivity.this, AddNoteActivity.class)));
+        floatingAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NotesActivity.this, AddNoteActivity.class));
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -97,37 +90,41 @@ public class NotesActivity extends AppCompatActivity {
             }
             return false;
         });
-
-    }
-
-    private void performSearch(String searchText) {
-        List<Note> filteredNotes = new ArrayList<>();
-        for (Note note : originalNotesItems) {
-            if (note.getTitle().toLowerCase().contains(searchText.toLowerCase())) {
-                filteredNotes.add(note);
-            }
-        }
-
-        // Update the RecyclerView adapter with the filtered data
-        notesAdapter.updateData(filteredNotes);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         // Observe the LiveData returned by ViewModel
-        viewModel.getAllNotes().observe(this, notes -> {
-            // Update the originalNotesItems list with the new notes list
-            originalNotesItems.clear();
-            originalNotesItems.addAll(notes);
-
-            // Update the notesItems list with the new notes list
-            notesItems.clear();
-            notesItems.addAll(notes);
-
-            // Notify the adapter that the data has changed
-            notesAdapter.notifyDataSetChanged();
+        viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                // Update the notesItems list with the new notes list
+                notesItems.clear();
+                notesItems.addAll(notes);
+                // Notify the adapter that the data has changed
+                notesAdapter.notifyDataSetChanged();
+            }
         });
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
