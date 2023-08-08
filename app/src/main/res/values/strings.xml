@@ -1,12 +1,23 @@
 <resources>
     <string name="app_name">notee</string>
+    <string name="logo">logo</string>
     <string name="app_description">notee is an app designed for your notes to be saved away from other\'s eyes.</string>
+    <string name="login_description">I already have an account</string>
+    <string name="register_description">Get started</string>
     <string name="first_name">First Name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
-    <string name="send">Send</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="forgot_password_description">If you have forgotten your password, enter your email to get a reset link.</string>
+    <string name="send">Send</string>
+    <string name="recycler_view">Recycler View</string>
+    <string name="fab">FAB</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="add_note">Add Note</string>
+    <string name="notes">Notes</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="profile">Profile</string>
 </resources>
