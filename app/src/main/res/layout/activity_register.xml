@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="@string/password"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:textSize="14sp"
             app:fontFamily="@font/lato_regular" />
@@ -57,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="@string/first_name"
+            android:imeOptions="actionNext"
             android:inputType="textAutoComplete"
             android:textSize="14sp"
             app:fontFamily="@font/lato_regular" />
@@ -80,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="@string/email"
+            android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:textSize="14sp"
             app:fontFamily="@font/lato_regular" />
