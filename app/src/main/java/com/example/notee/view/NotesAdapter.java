@@ -28,7 +28,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @NonNull
     @Override
     public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.individual_note, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note, parent, false);
 
         return new NotesAdapter.ViewHolder(view);
     }
@@ -60,8 +60,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         ViewHolder(View itemView) {
             super(itemView);
 
-            noteTitle = itemView.findViewById(R.id.titleEditText);
-            noteContent = itemView.findViewById(R.id.content);
+            noteTitle = itemView.findViewById(R.id.displayed_note_title);
+            noteContent = itemView.findViewById(R.id.displayed_note_content);
         }
     }
 
