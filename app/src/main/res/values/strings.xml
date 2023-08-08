@@ -20,4 +20,7 @@
     <string name="notes">Notes</string>
     <string name="shopping_list">Shopping List</string>
     <string name="profile">Profile</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="save_note">Save Note</string>
 </resources>
