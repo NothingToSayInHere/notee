@@ -2,12 +2,16 @@ package com.example.notee;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.notee.model.Note;
+import com.example.notee.view.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,8 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_TITLE = "title";
     private static final String KEY_NOTE_TEXT = "note_text";
     private static final String KEY_CREATION_DATE = "creation_date";
+    private static final String KEY_USER_ID = "user_id";
+    private Context context;
 
     public NoteDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,7 +38,8 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_TITLE + " TEXT,"
                 + KEY_NOTE_TEXT + " TEXT,"
-                + KEY_CREATION_DATE + " INTEGER"
+                + KEY_CREATION_DATE + " INTEGER,"
+                + KEY_USER_ID + " TEXT"
                 + ")";
         db.execSQL(CREATE_NOTES_TABLE);
     }
@@ -49,6 +56,7 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE_TEXT, note.getContent());
+        values.put(KEY_USER_ID, getCurrentUserId());
         Log.v("NoteDatabaseHelper", "Adding note to database: " + note.getTitle());
         db.insert(TABLE_NOTES, null, values);
         db.close();
@@ -71,9 +79,10 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
 
     public List<Note> getAllNotes() {
         List<Note> noteList = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_NOTES;
+        String selectQuery = "SELECT * FROM " + TABLE_NOTES +
+                " WHERE " + KEY_USER_ID + " = ?";
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{getCurrentUserId()});
         if (cursor.moveToFirst()) {
             do {
                 Note note = new Note();
@@ -113,4 +122,17 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
         }
         return count;
     }
+
+    private String getCurrentUserId() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            return currentUser.getUid();
+        } else {
+            Intent loginIntent = new Intent(context, LoginActivity.class);
+            context.startActivity(loginIntent);
+
+            return "not_authenticated";
+        }
+    }
+
 }
