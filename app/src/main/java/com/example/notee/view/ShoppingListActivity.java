@@ -6,12 +6,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.example.notee.R;
 import com.example.notee.ShoppingListDatabase;
+import com.example.notee.model.ShoppingList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
     private ShoppingListAdapter adapter;
@@ -37,6 +41,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         FloatingActionButton floatingAddShoppingList = findViewById(R.id.floating_add_shopping_list);
         floatingAddShoppingList.setOnClickListener(v -> startActivity(new Intent(ShoppingListActivity.this, AddShoppingListActivity.class)));
 
+        loadShoppingLists();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_shopping_list);
@@ -56,6 +62,24 @@ public class ShoppingListActivity extends AppCompatActivity {
                 return true;
             }
             return false;
+        });
+    }
+
+    private void loadShoppingLists() {
+        AsyncTask.execute(() -> {
+            List<ShoppingList> shoppingLists = shoppingListDatabase.shoppingListDao().getAllShoppingLists();
+
+            runOnUiThread(() -> {
+                adapter.setShoppingLists(shoppingLists);
+                adapter.notifyDataSetChanged();
+
+                FloatingActionButton floatingAddShoppingList = findViewById(R.id.floating_add_shopping_list);
+                if (shoppingLists.isEmpty()) {
+                    floatingAddShoppingList.show();
+                } else {
+                    floatingAddShoppingList.hide();
+                }
+            });
         });
     }
 
