@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Notee"
         tools:targetApi="31">
         <activity
+            android:name=".view.AddShoppingListActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.NoteDetailsActivity"
             android:exported="false" />
         <activity
