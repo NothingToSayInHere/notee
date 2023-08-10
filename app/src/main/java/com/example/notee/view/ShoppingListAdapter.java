@@ -1,5 +1,6 @@
 package com.example.notee.view;
 
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.example.notee.ShoppingListDatabase;
 import com.example.notee.model.ShoppingList;
 
 import java.util.List;
+
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,19 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
         ShoppingList shoppingList = shoppingLists.get(position);
         holder.textListName.setText(shoppingList.getName());
+
+        holder.deleteButton.setOnClickListener(v -> {
+            deleteShoppingList(shoppingList);
+            Toast.makeText(v.getContext(), "Shopping list deleted", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void deleteShoppingList(ShoppingList shoppingList) {
+        AsyncTask.execute(() -> {
+            if (shoppingListDatabase != null) {
+                shoppingListDatabase.shoppingListDao().delete(shoppingList);
+            }
+        });
     }
 
     @Override
@@ -50,6 +66,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     static class ShoppingListViewHolder extends RecyclerView.ViewHolder {
         TextView textListName;
         ImageButton deleteButton;
+
         ImageButton addItemButton;
 
         public ShoppingListViewHolder(@NonNull View itemView) {
