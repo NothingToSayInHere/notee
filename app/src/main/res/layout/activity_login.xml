@@ -12,13 +12,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_title"
-        app:layout_constraintWidth_max="280dp"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintWidth_max="320dp"
+        app:layout_constraintWidth_min="280dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:hint="@string/email"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
@@ -48,13 +49,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_layout"
-        app:layout_constraintWidth_max="280dp"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintWidth_max="320dp"
+        app:layout_constraintWidth_min="280dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textSize="14sp"
