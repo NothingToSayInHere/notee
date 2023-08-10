@@ -23,4 +23,6 @@
     <string name="delete_note">Delete Note</string>
     <string name="edit_note">Edit Note</string>
     <string name="save_note">Save Note</string>
+    <string name="delete_profile">Delete Profile</string>
+    <string name="logout">Logout</string>
 </resources>
