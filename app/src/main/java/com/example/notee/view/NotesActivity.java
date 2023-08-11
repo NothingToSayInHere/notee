@@ -15,6 +15,7 @@ import com.example.notee.viewmodel.NoteViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class NotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+
         floatingAddNote = findViewById(R.id.floating_add_note);
         viewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
@@ -76,6 +78,7 @@ public class NotesActivity extends AppCompatActivity {
             }
             return false;
         });
+
     }
 
     @Override

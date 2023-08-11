@@ -43,4 +43,5 @@ public class NoteRepository {
     public void updateNote(Note note) {
         databaseHelper.updateNote(note);
     }
+
 }

@@ -30,6 +30,7 @@ public class NoteViewModel extends AndroidViewModel {
         if (note == null) {
             throw new IllegalArgumentException("Note cannot be null");
         }
+
         if (repository != null) {
             repository.addNoteToDatabase(note);
             repository.getAllNotes();
@@ -52,4 +53,5 @@ public class NoteViewModel extends AndroidViewModel {
     public void setIsNoteAdded(boolean value) {
         isNoteAdded.setValue(value);
     }
+
 }
