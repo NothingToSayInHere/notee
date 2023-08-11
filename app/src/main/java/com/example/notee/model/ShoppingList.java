@@ -3,7 +3,7 @@ package com.example.notee.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "shopping_lists")
+@Entity(tableName = "shopping_list")
 public class ShoppingList {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -25,4 +25,7 @@ public class ShoppingList {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }
