@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notee.R;
 import com.example.notee.model.Note;
-import com.example.notee.viewmodel.NoteActivityViewModel;
+import com.example.notee.viewmodel.NoteViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class NotesActivity extends AppCompatActivity {
     FloatingActionButton floatingAddNote;
     List<Note> notesItems;
-    private NoteActivityViewModel viewModel;
+    private NoteViewModel viewModel;
     private NotesAdapter notesAdapter;
 
     @Override
@@ -29,7 +29,7 @@ public class NotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         floatingAddNote = findViewById(R.id.floating_add_note);
-        viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
         // Finding Recycler View
         RecyclerView rv = findViewById(R.id.rv);
@@ -91,23 +91,3 @@ public class NotesActivity extends AppCompatActivity {
         });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

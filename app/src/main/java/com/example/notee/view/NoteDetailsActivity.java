@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.notee.R;
 import com.example.notee.model.Note;
-import com.example.notee.viewmodel.NoteActivityViewModel;
+import com.example.notee.viewmodel.NoteViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -16,14 +16,14 @@ public class NoteDetailsActivity extends AppCompatActivity {
     TextInputEditText noteDetailsTitle, noteDetailsContent;
     MaterialButton deleteNoteButton, editNoteButton, saveNoteButton;
     int noteID;
-    private NoteActivityViewModel viewModel;
+    private NoteViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_details);
 
-        viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(NoteViewModel.class);
         noteDetailsTitle = findViewById(R.id.note_details_title);
         noteDetailsContent = findViewById(R.id.note_details_content);
         deleteNoteButton = findViewById(R.id.delete_note_button);

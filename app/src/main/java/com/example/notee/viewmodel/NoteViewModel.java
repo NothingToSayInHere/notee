@@ -13,11 +13,11 @@ import com.example.notee.model.Note;
 
 import java.util.List;
 
-public class NoteActivityViewModel extends AndroidViewModel {
+public class NoteViewModel extends AndroidViewModel {
     private final NoteRepository repository;
     private final MutableLiveData<Boolean> isNoteAdded = new MutableLiveData<>(false);
 
-    public NoteActivityViewModel(@NonNull Application application) {
+    public NoteViewModel(@NonNull Application application) {
         super(application);
         repository = new NoteRepository(application.getApplicationContext());
     }
@@ -27,16 +27,13 @@ public class NoteActivityViewModel extends AndroidViewModel {
     }
 
     public void addNoteToDatabase(Note note) {
-        Log.d("NoteActivityViewModel", "addNoteToDatabase() method called");
         if (note == null) {
             throw new IllegalArgumentException("Note cannot be null");
         }
         if (repository != null) {
-
             repository.addNoteToDatabase(note);
             repository.getAllNotes();
             isNoteAdded.setValue(true);
-            Log.d("NoteActivityViewModel", "Note added to database: " + note);
         }
     }
 

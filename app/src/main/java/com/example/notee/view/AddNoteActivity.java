@@ -10,14 +10,14 @@ import android.widget.Toast;
 import com.example.notee.NoteDatabaseHelper;
 import com.example.notee.R;
 import com.example.notee.model.Note;
-import com.example.notee.viewmodel.NoteActivityViewModel;
+import com.example.notee.viewmodel.NoteViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AddNoteActivity extends AppCompatActivity {
     private TextInputEditText addNoteTitle, addNoteContent;
     private MaterialButton addNoteButton;
-    private NoteActivityViewModel viewModel;
+    private NoteViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
         NoteDatabaseHelper db = new NoteDatabaseHelper(this);
 
-        viewModel = new ViewModelProvider(this).get(NoteActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
         addNoteTitle = findViewById(R.id.add_note_title);
         addNoteContent = findViewById(R.id.add_note_content);
