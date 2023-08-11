@@ -25,4 +25,8 @@
     <string name="save_note">Save Note</string>
     <string name="delete_profile">Delete Profile</string>
     <string name="logout">Logout</string>
+    <string name="add_shopping_list">Add Shopping List</string>
+    <string name="name">Name</string>
+    <string name="add_item">Add Item</string>
+    <string name="delete_shopping_list">Delete Shopping List</string>
 </resources>
