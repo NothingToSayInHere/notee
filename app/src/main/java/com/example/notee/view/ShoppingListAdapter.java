@@ -1,79 +1,81 @@
 package com.example.notee.view;
 
-import android.os.AsyncTask;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notee.R;
-import com.example.notee.ShoppingListDatabase;
 import com.example.notee.model.ShoppingList;
+import com.example.notee.viewmodel.ShoppingListViewModel;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
-import android.widget.Toast;
+public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
+    private final Context context;
+    private List<ShoppingList> shoppingListList;
+    private final ShoppingListViewModel viewModel;
 
-import java.util.ArrayList;
-
-public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingListViewHolder> {
-    private List<ShoppingList> shoppingLists = new ArrayList<>();
-    private ShoppingListDatabase shoppingListDatabase;
-
-    public void setShoppingLists(List<ShoppingList> shoppingLists) {
-        this.shoppingLists = shoppingLists;
-    }
-
-    public ShoppingListAdapter(ShoppingListDatabase shoppingListDatabase) {
-        this.shoppingListDatabase = shoppingListDatabase;
+    public ShoppingListAdapter(Context context, List<ShoppingList> shoppingListList, ShoppingListViewModel viewModel) {
+        this.context = context;
+        this.shoppingListList = shoppingListList;
+        this.viewModel = viewModel;
     }
 
     @NonNull
     @Override
-    public ShoppingListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ShoppingListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shopping_list, parent, false);
-        return new ShoppingListViewHolder(view);
+
+        return new ShoppingListAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
-        ShoppingList shoppingList = shoppingLists.get(position);
-        holder.textListName.setText(shoppingList.getName());
+    public void onBindViewHolder(@NonNull ShoppingListAdapter.ViewHolder holder, int position) {
+        ShoppingList shoppingList = shoppingListList.get(position);
+        holder.shoppingListName.setText(shoppingListList.get(holder.getAdapterPosition()).getName());
 
+        // Set up click listener for delete button
         holder.deleteButton.setOnClickListener(v -> {
-            deleteShoppingList(shoppingList);
+            int deleteListId = shoppingList.getId();
+            viewModel.deleteShoppingList(deleteListId);
             Toast.makeText(v.getContext(), "Shopping list deleted", Toast.LENGTH_SHORT).show();
         });
+
     }
 
-    private void deleteShoppingList(ShoppingList shoppingList) {
-        AsyncTask.execute(() -> {
-            if (shoppingListDatabase != null) {
-                shoppingListDatabase.shoppingListDao().delete(shoppingList);
-            }
-        });
+    public ShoppingList getItem(int position) {
+        return shoppingListList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return shoppingLists.size();
+        return shoppingListList.size();
     }
 
-    static class ShoppingListViewHolder extends RecyclerView.ViewHolder {
-        TextView textListName;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        MaterialTextView shoppingListName;
         ImageButton deleteButton;
-
         ImageButton addItemButton;
 
-        public ShoppingListViewHolder(@NonNull View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            textListName = itemView.findViewById(R.id.text_list_name);
+
+            shoppingListName = itemView.findViewById(R.id.shopping_list_name);
             deleteButton = itemView.findViewById(R.id.delete_button);
             addItemButton = itemView.findViewById(R.id.add_item_button);
         }
+
+    }
+
+    public void setShoppingList(List<ShoppingList> shoppingList) {
+        shoppingListList = shoppingList;
+        notifyDataSetChanged();
     }
 }
