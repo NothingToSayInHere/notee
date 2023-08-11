@@ -1,47 +1,46 @@
 package com.example.notee.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.example.notee.R;
-import com.example.notee.ShoppingListDatabase;
 import com.example.notee.model.ShoppingList;
+import com.example.notee.viewmodel.ShoppingListViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
-    private ShoppingListAdapter adapter;
-    private ShoppingListDatabase shoppingListDatabase;
+    FloatingActionButton floatingAddShoppingList;
+    List<ShoppingList> shoppingListItems;
+    private ShoppingListViewModel viewModel;
+    private ShoppingListAdapter shoppingListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+        floatingAddShoppingList = findViewById(R.id.floating_add_shopping_list);
+        viewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
 
-        shoppingListDatabase = Room.databaseBuilder(
-                getApplicationContext(),
-                ShoppingListDatabase.class,
-                "shopping-list-db"
-        ).build();
+        RecyclerView rv = findViewById(R.id.shopping_list_rv);
+        rv.setLayoutManager(new LinearLayoutManager(ShoppingListActivity.this));
+        rv.hasFixedSize();
 
-        RecyclerView recyclerView = findViewById(R.id.shopping_list_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ShoppingListAdapter(shoppingListDatabase);
+        shoppingListItems = new ArrayList<>();
 
-        recyclerView.setAdapter(adapter);
+        shoppingListAdapter = new ShoppingListAdapter(this, new ArrayList<>(), viewModel);
 
-        FloatingActionButton floatingAddShoppingList = findViewById(R.id.floating_add_shopping_list);
+        rv.setAdapter(shoppingListAdapter);
+
         floatingAddShoppingList.setOnClickListener(v -> startActivity(new Intent(ShoppingListActivity.this, AddShoppingListActivity.class)));
-
-        loadShoppingLists();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -65,22 +64,17 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
     }
 
-    private void loadShoppingLists() {
-        AsyncTask.execute(() -> {
-            List<ShoppingList> shoppingLists = shoppingListDatabase.shoppingListDao().getAllShoppingLists();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.getFullShoppingList().observe(this, shoppingList -> {
+            shoppingListAdapter.setShoppingList(shoppingList);
 
-            runOnUiThread(() -> {
-                adapter.setShoppingLists(shoppingLists);
-                adapter.notifyDataSetChanged();
-
-                FloatingActionButton floatingAddShoppingList = findViewById(R.id.floating_add_shopping_list);
-                if (shoppingLists.isEmpty()) {
-                    floatingAddShoppingList.show();
-                } else {
-                    floatingAddShoppingList.hide();
-                }
-            });
+            if (shoppingList.isEmpty()) {
+                floatingAddShoppingList.show();
+            } else {
+                floatingAddShoppingList.hide();
+            }
         });
     }
-
 }
