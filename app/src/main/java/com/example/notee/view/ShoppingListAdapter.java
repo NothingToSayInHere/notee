@@ -1,16 +1,22 @@
 package com.example.notee.view;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notee.R;
 import com.example.notee.model.ShoppingList;
+import com.example.notee.model.ShoppingListItem;
 import com.example.notee.viewmodel.ShoppingListViewModel;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -44,6 +50,38 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             Toast.makeText(v.getContext(), "Shopping list deleted", Toast.LENGTH_SHORT).show();
         });
 
+        holder.addShoppingListItemButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle("Add Item");
+
+            EditText itemNameEditText = new EditText(v.getContext());
+            builder.setView(itemNameEditText);
+
+            builder.setPositiveButton("Add", (dialog, which) -> {
+                String itemName = itemNameEditText.getText().toString();
+                if (!itemName.isEmpty()) {
+                    viewModel.addItemToShoppingList(shoppingList.getId(), itemName);
+                    Toast.makeText(v.getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(v.getContext(), "Item name cannot be empty", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            builder.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext());
+
+        LiveData<List<ShoppingListItem>> itemsLiveData = viewModel.getItemsForShoppingList(shoppingList.getId());
+        itemsLiveData.observe((LifecycleOwner) holder.itemView.getContext(), items -> {
+            ItemAdapter itemAdapter = new ItemAdapter(items);
+            holder.itemsRv.setLayoutManager(layoutManager);
+            holder.itemsRv.setAdapter(itemAdapter);
+        });
+
     }
 
     @Override
@@ -53,6 +91,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialTextView shoppingListName;
+        RecyclerView itemsRv;
         ImageButton deleteShoppingListButton;
         ImageButton addShoppingListItemButton;
 
@@ -60,6 +99,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             super(itemView);
 
             shoppingListName = itemView.findViewById(R.id.shopping_list_name);
+            itemsRv = itemView.findViewById(R.id.items_rv);
             deleteShoppingListButton = itemView.findViewById(R.id.delete_shopping_list_button);
             addShoppingListItemButton = itemView.findViewById(R.id.add_shopping_list_item_button);
         }
