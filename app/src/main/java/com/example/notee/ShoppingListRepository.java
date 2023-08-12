@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.notee.model.ShoppingList;
 import com.example.notee.model.ShoppingListDao;
+import com.example.notee.model.ShoppingListItem;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -40,6 +41,13 @@ public class ShoppingListRepository {
             shoppingListEntity.setId(id);
             shoppingListDao.delete(shoppingListEntity);
         });
+    }
+
+    public void addShoppingListItem(ShoppingListItem item) {
+        executor.execute(() -> {
+            shoppingListDao.insertItem(item);
+        });
+
     }
 
 }

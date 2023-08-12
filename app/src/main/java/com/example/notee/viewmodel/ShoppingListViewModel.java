@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.notee.ShoppingListRepository;
 import com.example.notee.model.ShoppingList;
+import com.example.notee.model.ShoppingListItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -52,4 +53,12 @@ public class ShoppingListViewModel extends AndroidViewModel {
     public void setIsShoppingListAdded(boolean value) {
         isShoppingListAdded.setValue(value);
     }
+
+    public void addItemToShoppingList(int listId, String itemName) {
+        ShoppingListItem item = new ShoppingListItem();
+        item.setListId(listId);
+        item.setItemName(itemName);
+        repository.addShoppingListItem(item);
+    }
+
 }
