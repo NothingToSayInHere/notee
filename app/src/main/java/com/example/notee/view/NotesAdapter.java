@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notee.R;
 import com.example.notee.model.Note;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
@@ -54,8 +54,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        // Declare instance variables for the note layout
-        TextView noteTitle, noteContent;
+        MaterialTextView noteTitle, noteContent;
 
         ViewHolder(View itemView) {
             super(itemView);
