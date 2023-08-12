@@ -61,4 +61,8 @@ public class ShoppingListViewModel extends AndroidViewModel {
         repository.addShoppingListItem(item);
     }
 
+    public LiveData<List<ShoppingListItem>> getItemsForShoppingList(int listId) {
+        return repository.getItemsForShoppingList(listId);
+    }
+
 }

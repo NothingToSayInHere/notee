@@ -50,4 +50,8 @@ public class ShoppingListRepository {
 
     }
 
+    public LiveData<List<ShoppingListItem>> getItemsForShoppingList(int listId) {
+        return shoppingListDao.getItemsForShoppingList(listId);
+    }
+
 }
