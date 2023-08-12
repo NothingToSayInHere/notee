@@ -27,9 +27,6 @@ public interface ShoppingListDao {
     @Update
     void updateItem(ShoppingListItem item);
 
-    @Delete
-    void deleteItem(ShoppingListItem item);
-
     @Query("SELECT * FROM shopping_list_item WHERE listId = :listId")
     LiveData<List<ShoppingListItem>> getItemsForShoppingList(int listId);
 
