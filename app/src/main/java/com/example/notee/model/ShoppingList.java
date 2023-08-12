@@ -1,5 +1,6 @@
 package com.example.notee.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,8 +10,12 @@ public class ShoppingList {
     private int id;
     private String name;
 
-    public ShoppingList(String name) {
+    @ColumnInfo(name = "userUid")
+    private final String userUid;
+
+    public ShoppingList(String name, String userUid) {
         this.name = name;
+        this.userUid = userUid;
     }
 
     public int getId() {
@@ -28,4 +33,9 @@ public class ShoppingList {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getUserUid() {
+        return userUid;
+    }
+
 }

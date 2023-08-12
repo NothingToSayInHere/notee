@@ -25,18 +25,18 @@ public class ShoppingListRepository {
 
     public void addShoppingList(ShoppingList shoppingList) {
         executor.execute(() -> {
-            ShoppingList shoppingListEntity = new ShoppingList(shoppingList.getName());
+            ShoppingList shoppingListEntity = new ShoppingList(shoppingList.getName(), shoppingList.getUserUid());
             shoppingListDao.insert(shoppingListEntity);
         });
     }
 
-    public LiveData<List<ShoppingList>> getFullShoppingList() {
-        return shoppingListDao.getFullShoppingList();
+    public LiveData<List<ShoppingList>> getFullShoppingList(String userUid) {
+        return shoppingListDao.getFullShoppingList(userUid);
     }
 
     public void deleteShoppingList(int id) {
         executor.execute(() -> {
-            ShoppingList shoppingListEntity = new ShoppingList("");
+            ShoppingList shoppingListEntity = new ShoppingList("", "");
             shoppingListEntity.setId(id);
             shoppingListDao.delete(shoppingListEntity);
         });

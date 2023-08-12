@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.notee.ShoppingListRepository;
 import com.example.notee.model.ShoppingList;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -29,9 +31,12 @@ public class ShoppingListViewModel extends AndroidViewModel {
         if (shoppingList == null) {
             throw new IllegalArgumentException("Shopping list cannot be null");
         }
-        if (repository != null) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userUid = user.getUid();
             repository.addShoppingList(shoppingList);
-            repository.getFullShoppingList();
+            repository.getFullShoppingList(userUid);
             isShoppingListAdded.setValue(true);
         }
     }
@@ -40,8 +45,8 @@ public class ShoppingListViewModel extends AndroidViewModel {
         repository.deleteShoppingList(id);
     }
 
-    public LiveData<List<ShoppingList>> getFullShoppingList() {
-        return repository.getFullShoppingList();
+    public LiveData<List<ShoppingList>> getFullShoppingList(String userUid) {
+        return repository.getFullShoppingList(userUid);
     }
 
     public void setIsShoppingListAdded(boolean value) {

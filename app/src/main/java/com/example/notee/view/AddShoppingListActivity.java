@@ -1,7 +1,6 @@
 package com.example.notee.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +11,11 @@ import com.example.notee.model.ShoppingList;
 import com.example.notee.viewmodel.ShoppingListViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AddShoppingListActivity extends AppCompatActivity {
     private TextInputEditText addShoppingListName;
-    private MaterialButton addShoppingListButton;
     private ShoppingListViewModel viewModel;
 
     @Override
@@ -26,15 +26,22 @@ public class AddShoppingListActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
 
         addShoppingListName = findViewById(R.id.add_shopping_list_name);
-        addShoppingListButton = findViewById(R.id.add_shopping_list_button);
+        MaterialButton addShoppingListButton = findViewById(R.id.add_shopping_list_button);
 
         addShoppingListButton.setOnClickListener(v -> {
-            String nameString = addShoppingListName.getText().toString().trim();
+            String nameString = addShoppingListName.getText() != null ? addShoppingListName.getText().toString().trim() : "";
 
             if (!nameString.isEmpty()) {
-                ShoppingList shoppingList = new ShoppingList(nameString);
-                viewModel.addShoppingList(shoppingList);
-                addShoppingListName.setText("");
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (user != null) {
+                    String userUid = user.getUid();
+                    ShoppingList shoppingList = new ShoppingList(nameString, userUid); // Pass userUid to constructor
+                    viewModel.addShoppingList(shoppingList);
+                    addShoppingListName.setText("");
+                } else {
+                    Toast.makeText(AddShoppingListActivity.this, "Cannot add shopping list.", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(AddShoppingListActivity.this, "Please enter a name.", Toast.LENGTH_SHORT).show();
             }

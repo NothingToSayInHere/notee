@@ -16,6 +16,7 @@ public interface ShoppingListDao {
     @Delete
     void delete(ShoppingList shoppingList);
 
-    @Query("SELECT * FROM shopping_list")
-    LiveData<List<ShoppingList>> getFullShoppingList();
+    @Query("SELECT * FROM shopping_list WHERE userUid = :userUid")
+    LiveData<List<ShoppingList>> getFullShoppingList(String userUid);
+
 }

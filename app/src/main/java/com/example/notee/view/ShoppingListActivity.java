@@ -13,6 +13,8 @@ import com.example.notee.model.ShoppingList;
 import com.example.notee.viewmodel.ShoppingListViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         shoppingListItems = new ArrayList<>();
 
-        shoppingListAdapter = new ShoppingListAdapter(this, new ArrayList<>(), viewModel);
+        shoppingListAdapter = new ShoppingListAdapter(new ArrayList<>(), viewModel);
 
         rv.setAdapter(shoppingListAdapter);
 
@@ -67,14 +69,19 @@ public class ShoppingListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        viewModel.getFullShoppingList().observe(this, shoppingList -> {
-            shoppingListAdapter.setShoppingList(shoppingList);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userUid = user.getUid();
+            viewModel.getFullShoppingList(userUid).observe(this, shoppingList -> {
+                shoppingListAdapter.setShoppingList(shoppingList);
 
-            if (shoppingList.isEmpty()) {
-                floatingAddShoppingList.show();
-            } else {
-                floatingAddShoppingList.hide();
-            }
-        });
+                if (shoppingList.isEmpty()) {
+                    floatingAddShoppingList.show();
+                } else {
+                    floatingAddShoppingList.hide();
+                }
+            });
+        }
+
     }
 }

@@ -1,6 +1,5 @@
 package com.example.notee.view;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,10 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
-    private final Context context;
     private List<ShoppingList> shoppingListList;
     private final ShoppingListViewModel viewModel;
 
-    public ShoppingListAdapter(Context context, List<ShoppingList> shoppingListList, ShoppingListViewModel viewModel) {
-        this.context = context;
+    public ShoppingListAdapter(List<ShoppingList> shoppingListList, ShoppingListViewModel viewModel) {
         this.shoppingListList = shoppingListList;
         this.viewModel = viewModel;
     }
@@ -33,7 +30,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public ShoppingListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shopping_list, parent, false);
 
-        return new ShoppingListAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -41,7 +38,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         ShoppingList shoppingList = shoppingListList.get(position);
         holder.shoppingListName.setText(shoppingListList.get(holder.getAdapterPosition()).getName());
 
-        // Set up click listener for delete button
         holder.deleteButton.setOnClickListener(v -> {
             int deleteListId = shoppingList.getId();
             viewModel.deleteShoppingList(deleteListId);
@@ -50,16 +46,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     }
 
-    public ShoppingList getItem(int position) {
-        return shoppingListList.get(position);
-    }
-
     @Override
     public int getItemCount() {
         return shoppingListList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialTextView shoppingListName;
         ImageButton deleteButton;
         ImageButton addItemButton;
