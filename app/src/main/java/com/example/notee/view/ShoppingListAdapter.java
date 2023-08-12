@@ -38,7 +38,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         ShoppingList shoppingList = shoppingListList.get(position);
         holder.shoppingListName.setText(shoppingListList.get(holder.getAdapterPosition()).getName());
 
-        holder.deleteButton.setOnClickListener(v -> {
+        holder.deleteShoppingListButton.setOnClickListener(v -> {
             int deleteListId = shoppingList.getId();
             viewModel.deleteShoppingList(deleteListId);
             Toast.makeText(v.getContext(), "Shopping list deleted", Toast.LENGTH_SHORT).show();
@@ -53,15 +53,15 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialTextView shoppingListName;
-        ImageButton deleteButton;
-        ImageButton addItemButton;
+        ImageButton deleteShoppingListButton;
+        ImageButton addShoppingListItemButton;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             shoppingListName = itemView.findViewById(R.id.shopping_list_name);
-            deleteButton = itemView.findViewById(R.id.delete_button);
-            addItemButton = itemView.findViewById(R.id.add_item_button);
+            deleteShoppingListButton = itemView.findViewById(R.id.delete_shopping_list_button);
+            addShoppingListItemButton = itemView.findViewById(R.id.add_shopping_list_item_button);
         }
 
     }
