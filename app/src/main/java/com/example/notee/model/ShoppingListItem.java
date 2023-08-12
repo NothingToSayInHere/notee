@@ -9,6 +9,7 @@ public class ShoppingListItem {
     private int id;
     private int listId;
     private String itemName;
+    private boolean isCrossedOut = false;
 
     public int getId() {
         return id;
@@ -32,5 +33,13 @@ public class ShoppingListItem {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public boolean isCrossedOut() {
+        return isCrossedOut;
+    }
+
+    public void setIsCrossedOut(boolean isCrossedOut) {
+        this.isCrossedOut = isCrossedOut;
     }
 }
