@@ -29,4 +29,9 @@
     <string name="name">Name</string>
     <string name="add_item">Add Item</string>
     <string name="delete_shopping_list">Delete Shopping List</string>
+    <string name="shopping_list_name">Shopping List Name</string>
+    <string name="delete_list">Delete List</string>
+    <string name="add_to_shopping_list">Add To Shopping List</string>
+    <string name="enter_item">Enter Item</string>
+    <string name="item_name">Item Name</string>
 </resources>
