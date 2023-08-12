@@ -77,7 +77,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
         LiveData<List<ShoppingListItem>> itemsLiveData = viewModel.getItemsForShoppingList(shoppingList.getId());
         itemsLiveData.observe((LifecycleOwner) holder.itemView.getContext(), items -> {
-            ItemAdapter itemAdapter = new ItemAdapter(items);
+            ItemAdapter itemAdapter = new ItemAdapter(items, viewModel);
             holder.itemsRv.setLayoutManager(layoutManager);
             holder.itemsRv.setAdapter(itemAdapter);
         });
