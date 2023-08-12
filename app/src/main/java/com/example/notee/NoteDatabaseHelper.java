@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.notee.model.Note;
 import com.example.notee.view.LoginActivity;
@@ -29,7 +28,6 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
 
     public NoteDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d("NoteDatabaseHelper", "Constructor called.");
     }
 
     @Override
@@ -51,16 +49,13 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addNote(Note note) {
-        Log.d("NoteDatabaseHelper", "addNote() method called");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE_TEXT, note.getContent());
         values.put(KEY_USER_ID, getCurrentUserId());
-        Log.v("NoteDatabaseHelper", "Adding note to database: " + note.getTitle());
         db.insert(TABLE_NOTES, null, values);
         db.close();
-        Log.v("NoteDatabaseHelper", "Note added to database: " + note.getTitle());
     }
 
     public Note getNoteById(int id) {

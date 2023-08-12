@@ -33,7 +33,6 @@ public class NotesActivity extends AppCompatActivity {
         floatingAddNote = findViewById(R.id.floating_add_note);
         viewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
-        // Finding Recycler View
         RecyclerView rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(NotesActivity.this));
         rv.hasFixedSize();
@@ -43,14 +42,12 @@ public class NotesActivity extends AppCompatActivity {
         notesAdapter = new NotesAdapter(this, notesItems, (note, position) -> {
             if (!notesItems.isEmpty() && position < notesItems.size()) {
                 Intent intent = new Intent(NotesActivity.this, NoteDetailsActivity.class);
-                // put the title and content of the clicked note as extras in the intent
+
                 Note clickedNote = notesItems.get(position);
                 intent.putExtra("title", clickedNote.getTitle());
                 intent.putExtra("content", clickedNote.getContent());
                 intent.putExtra("id", clickedNote.getId());
                 startActivity(intent);
-            } else {
-                Log.e("NotesActivity", "Invalid position: " + position);
             }
         });
 
@@ -84,12 +81,9 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Observe the LiveData returned by ViewModel
         viewModel.getAllNotes().observe(this, notes -> {
-            // Update the notesItems list with the new notes list
             notesItems.clear();
             notesItems.addAll(notes);
-            // Notify the adapter that the data has changed
             notesAdapter.notifyDataSetChanged();
         });
     }

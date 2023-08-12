@@ -35,11 +35,11 @@ public class AddNoteActivity extends AppCompatActivity {
         addNoteButton.setOnClickListener(v -> {
             String titleString = addNoteTitle.getText().toString().trim();
             String contentString = addNoteContent.getText().toString().trim();
+
             if (!titleString.isEmpty() && !contentString.isEmpty()) {
                 Note note = new Note(0, titleString, contentString);
-                Log.d("NotesActivity", "Adding note: " + note.getTitle() + " - " + note.getContent());
                 viewModel.addNoteToDatabase(note);
-                // clear the EditText fields to prepare for a new note
+
                 addNoteTitle.setText("");
                 addNoteContent.setText("");
             } else {
@@ -49,11 +49,10 @@ public class AddNoteActivity extends AppCompatActivity {
             finish();
         });
 
-        // Observe isNoteAdded LiveData
         viewModel.getIsNoteAdded().observe(this, isNoteAdded -> {
             if (isNoteAdded) {
                 Toast.makeText(AddNoteActivity.this, "Note added successfully.", Toast.LENGTH_LONG).show();
-                viewModel.setIsNoteAdded(false); // reset isNoteAdded to false
+                viewModel.setIsNoteAdded(false);
             }
         });
 

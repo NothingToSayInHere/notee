@@ -36,7 +36,7 @@ public class AddShoppingListActivity extends AppCompatActivity {
 
                 if (user != null) {
                     String userUid = user.getUid();
-                    ShoppingList shoppingList = new ShoppingList(nameString, userUid); // Pass userUid to constructor
+                    ShoppingList shoppingList = new ShoppingList(nameString, userUid);
                     viewModel.addShoppingList(shoppingList);
                     addShoppingListName.setText("");
                 } else {

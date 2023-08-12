@@ -1,7 +1,6 @@
 package com.example.notee;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -17,13 +16,11 @@ public class NoteRepository {
     private final ExecutorService executor;
 
     public NoteRepository(Context context) {
-        Log.d("NoteRepository", "Creating new instance of NoteDatabaseHelper in constructor");
         databaseHelper = new NoteDatabaseHelper(context);
         executor = Executors.newSingleThreadExecutor();
     }
 
     public void addNoteToDatabase(Note note) {
-        Log.d("NoteRepository", "addNoteToDatabase() method in NoteRepository called");
         executor.execute(() -> databaseHelper.addNote(note));
     }
 

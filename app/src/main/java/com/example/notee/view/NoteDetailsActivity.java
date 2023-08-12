@@ -30,51 +30,39 @@ public class NoteDetailsActivity extends AppCompatActivity {
         editNoteButton = findViewById(R.id.edit_note_button);
         saveNoteButton = findViewById(R.id.save_note_button);
 
-        // Disable the fields by default
         noteDetailsTitle.setEnabled(false);
         noteDetailsContent.setEnabled(false);
 
-        // Get the note data from the intent extras
         String title = getIntent().getStringExtra("title");
         String content = getIntent().getStringExtra("content");
         noteID = getIntent().getIntExtra("id", -1);
 
-        // Populate the EditText fields with the note data
         noteDetailsTitle.setText(title);
         noteDetailsContent.setText(content);
 
-        // Set up the DELETE button click listener
         deleteNoteButton.setOnClickListener(v -> {
             viewModel.deleteNoteById(noteID);
-            finish(); // Close the activity and return to the previous screen
+            finish();
         });
 
-        // Set up the edit button click listener
         editNoteButton.setOnClickListener(v -> {
-
-            // Enable the fields for editing
             noteDetailsTitle.setEnabled(true);
             noteDetailsContent.setEnabled(true);
 
-            // Show the "save" button and hide the "edit" button
             saveNoteButton.setVisibility(View.VISIBLE);
             editNoteButton.setVisibility(View.GONE);
         });
 
-        // Set up the save button click listener
         saveNoteButton.setOnClickListener(v -> {
-            // Save the changes to the note
             String newTitle = noteDetailsTitle.getText().toString();
             String newContent = noteDetailsContent.getText().toString();
 
             Note note = new Note(noteID, newTitle, newContent);
             viewModel.updateNote(note);
 
-            // Disable the fields again
             noteDetailsTitle.setEnabled(false);
             noteDetailsContent.setEnabled(false);
 
-            // Hide the "save" button and show the "edit" button
             saveNoteButton.setVisibility(View.GONE);
             editNoteButton.setVisibility(View.VISIBLE);
             finish();
