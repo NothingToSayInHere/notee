@@ -54,4 +54,10 @@ public class ShoppingListRepository {
         return shoppingListDao.getItemsForShoppingList(listId);
     }
 
+    public void updateItem(ShoppingListItem item) {
+        executor.execute(() -> {
+            shoppingListDao.updateItem(item);
+        });
+    }
+
 }
