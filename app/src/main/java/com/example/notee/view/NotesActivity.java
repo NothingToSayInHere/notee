@@ -2,6 +2,8 @@ package com.example.notee.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +25,7 @@ public class NotesActivity extends AppCompatActivity {
     List<Note> notesItems;
     private NoteViewModel viewModel;
     private NotesAdapter notesAdapter;
+    private Animation fabReappearAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
 
         floatingAddNote = findViewById(R.id.floating_add_note);
+        fabReappearAnimation = AnimationUtils.loadAnimation(this, R.anim.fab_reappear);
         viewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
         RecyclerView rv = findViewById(R.id.rv);
@@ -90,6 +94,12 @@ public class NotesActivity extends AppCompatActivity {
             notesItems.clear();
             notesItems.addAll(notes);
             notesAdapter.notifyDataSetChanged();
+
+            if (!notes.isEmpty()) {
+                floatingAddNote.show();
+            } else {
+                floatingAddNote.startAnimation(fabReappearAnimation);
+            }
         });
     }
 }

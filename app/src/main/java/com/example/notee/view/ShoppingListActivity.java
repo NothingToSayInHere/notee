@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.example.notee.R;
 import com.example.notee.model.ShoppingList;
@@ -21,6 +23,8 @@ import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
     FloatingActionButton floatingAddShoppingList;
+    private Animation fabDisappearAnimation;
+    private Animation fabReappearAnimation;
     List<ShoppingList> shoppingListItems;
     private ShoppingListViewModel viewModel;
     private ShoppingListAdapter shoppingListAdapter;
@@ -30,6 +34,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         floatingAddShoppingList = findViewById(R.id.floating_add_shopping_list);
+        fabDisappearAnimation = AnimationUtils.loadAnimation(this, R.anim.fab_disappear);
+        fabReappearAnimation = AnimationUtils.loadAnimation(this, R.anim.fab_reappear);
         viewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
 
         RecyclerView rv = findViewById(R.id.shopping_list_rv);
@@ -77,7 +83,9 @@ public class ShoppingListActivity extends AppCompatActivity {
 
                 if (shoppingList.isEmpty()) {
                     floatingAddShoppingList.show();
+                    floatingAddShoppingList.startAnimation(fabReappearAnimation);
                 } else {
+                    floatingAddShoppingList.startAnimation(fabDisappearAnimation);
                     floatingAddShoppingList.hide();
                 }
             });
