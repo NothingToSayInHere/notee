@@ -50,6 +50,12 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
 
+        int paddingStart = getResources().getDimensionPixelOffset(R.dimen.divider_padding_start);
+        int paddingEnd = getResources().getDimensionPixelOffset(R.dimen.divider_padding_end);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, R.drawable.divider, paddingStart, paddingEnd);
+        rv.addItemDecoration(dividerItemDecoration);
+
         rv.setAdapter(notesAdapter);
 
         floatingAddNote.setOnClickListener(v -> startActivity(new Intent(NotesActivity.this, AddNoteActivity.class)));
