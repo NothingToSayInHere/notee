@@ -2,7 +2,6 @@ package com.example.notee.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -39,7 +38,7 @@ public class NotesActivity extends AppCompatActivity {
 
         notesItems = new ArrayList<>();
 
-        notesAdapter = new NotesAdapter(this, notesItems, (note, position) -> {
+        notesAdapter = new NotesAdapter(notesItems, (note, position) -> {
             if (!notesItems.isEmpty() && position < notesItems.size()) {
                 Intent intent = new Intent(NotesActivity.this, NoteDetailsActivity.class);
 

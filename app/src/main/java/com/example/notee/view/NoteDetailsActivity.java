@@ -54,8 +54,8 @@ public class NoteDetailsActivity extends AppCompatActivity {
         });
 
         saveNoteButton.setOnClickListener(v -> {
-            String newTitle = noteDetailsTitle.getText().toString();
-            String newContent = noteDetailsContent.getText().toString();
+            String newTitle = noteDetailsTitle.getText() != null ? noteDetailsTitle.getText().toString() : "";
+            String newContent = noteDetailsContent.getText() != null ? noteDetailsContent.getText().toString() : "";
 
             Note note = new Note(noteID, newTitle, newContent);
             viewModel.updateNote(note);

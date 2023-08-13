@@ -1,6 +1,5 @@
 package com.example.notee.view;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,10 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-    private final Context context;
-    private List<Note> notesList;
-    private OnNoteItemClickListener onNoteItemClickListener;
+    private final List<Note> notesList;
+    private final OnNoteItemClickListener onNoteItemClickListener;
 
-    public NotesAdapter(Context context, List<Note> notesList, OnNoteItemClickListener onNoteItemClickListener) {
-        this.context = context;
+    public NotesAdapter(List<Note> notesList, OnNoteItemClickListener onNoteItemClickListener) {
         this.notesList = notesList;
         this.onNoteItemClickListener = onNoteItemClickListener;
     }
@@ -30,7 +27,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note, parent, false);
 
-        return new NotesAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -53,7 +50,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return notesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialTextView noteTitle, noteContent;
 
         ViewHolder(View itemView) {

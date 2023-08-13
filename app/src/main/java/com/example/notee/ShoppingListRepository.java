@@ -44,9 +44,7 @@ public class ShoppingListRepository {
     }
 
     public void addShoppingListItem(ShoppingListItem item) {
-        executor.execute(() -> {
-            shoppingListDao.insertItem(item);
-        });
+        executor.execute(() -> shoppingListDao.insertItem(item));
 
     }
 
@@ -55,9 +53,7 @@ public class ShoppingListRepository {
     }
 
     public void updateItem(ShoppingListItem item) {
-        executor.execute(() -> {
-            shoppingListDao.updateItem(item);
-        });
+        executor.execute(() -> shoppingListDao.updateItem(item));
     }
 
 }

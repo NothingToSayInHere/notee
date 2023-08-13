@@ -16,7 +16,7 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-    private List<ShoppingListItem> itemList;
+    private final List<ShoppingListItem> itemList;
     private final ShoppingListViewModel viewModel;
 
     public ItemAdapter(List<ShoppingListItem> itemList, ShoppingListViewModel viewModel) {

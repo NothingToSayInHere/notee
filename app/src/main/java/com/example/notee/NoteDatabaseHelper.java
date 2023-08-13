@@ -24,10 +24,11 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_NOTE_TEXT = "note_text";
     private static final String KEY_CREATION_DATE = "creation_date";
     private static final String KEY_USER_ID = "user_id";
-    private Context context;
+    private final Context context;
 
     public NoteDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -58,20 +59,6 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Note getNoteById(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NOTES, new String[]{KEY_ID,
-                        KEY_TITLE, KEY_NOTE_TEXT, KEY_CREATION_DATE}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-        Note note = new Note();
-        note.setId(cursor.getInt(0));
-        note.setTitle(cursor.getString(1));
-        note.setContent(cursor.getString(2));
-        return note;
-    }
-
     public List<Note> getAllNotes() {
         List<Note> noteList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_NOTES +
@@ -87,15 +74,16 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
                 noteList.add(note);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         return noteList;
     }
 
-    public int updateNote(Note note) {
+    public void updateNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_NOTE_TEXT, note.getContent());
-        return db.update(TABLE_NOTES, values, KEY_ID + " = ?",
+        db.update(TABLE_NOTES, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(note.getId())});
     }
 
@@ -104,18 +92,6 @@ public class NoteDatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NOTES, KEY_ID + " = ?",
                 new String[]{String.valueOf(id)});
         db.close();
-    }
-
-    public int getNoteCount() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NOTES, null);
-        int count = -1;
-        if (cursor != null) {
-            cursor.moveToFirst();
-            count = cursor.getInt(0);
-            cursor.close();
-        }
-        return count;
     }
 
     private String getCurrentUserId() {
