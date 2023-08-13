@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -18,6 +17,7 @@ import com.example.notee.model.ShoppingList;
 import com.example.notee.model.ShoppingListItem;
 import com.example.notee.viewmodel.ShoppingListViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -47,7 +47,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         holder.deleteShoppingListButton.setOnClickListener(v -> {
             int deleteListId = shoppingList.getId();
             viewModel.deleteShoppingList(deleteListId);
-            Toast.makeText(v.getContext(), "Shopping list deleted", Toast.LENGTH_SHORT).show();
+            Snackbar.make(v, "Shopping list deleted.", Snackbar.LENGTH_SHORT).show();
+
         });
 
         holder.addShoppingListItemButton.setOnClickListener(v -> {
@@ -61,9 +62,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 String itemName = itemNameEditText.getText().toString();
                 if (!itemName.isEmpty()) {
                     viewModel.addItemToShoppingList(shoppingList.getId(), itemName);
-                    Toast.makeText(v.getContext(), "Item added", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(v.getContext(), "Item name cannot be empty", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "Item added.", Snackbar.LENGTH_SHORT).show();
                 }
             });
 
