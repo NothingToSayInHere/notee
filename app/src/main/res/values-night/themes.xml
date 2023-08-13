@@ -9,7 +9,8 @@
         <item name="colorSecondary">@color/light_green_200</item>
         <item name="colorSecondaryVariant">@color/light_green_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Customize your theme here. -->
+        <!-- Other theme attributes for dark theme -->
+        <item name="dividerColor">@color/green_200</item>
 
     </style>
 </resources>
