@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".view.AddNoteActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -14,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/title"
+        app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,6 +28,7 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLines="1"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:fontFamily="@font/lato_regular" />
 
@@ -40,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/content"
+        app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_note_title_layout"
@@ -55,6 +57,7 @@
             android:inputType="textMultiLine"
             android:maxLines="10"
             android:minLines="3"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:fontFamily="@font/lato_regular" />
 
@@ -67,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/add_note"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_note_content_layout"
