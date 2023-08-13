@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="@dimen/padding">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/item_name"
-        android:layout_width="wrap_content"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_weight="1"
         android:text="@string/item_name"
-        android:textSize="14sp" />
+        android:textColor="@android:color/black" />
 
 </LinearLayout>
