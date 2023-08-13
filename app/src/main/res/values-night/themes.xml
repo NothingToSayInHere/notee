@@ -1,21 +1,15 @@
 <resources>
-    <!-- Base application theme. -->
+    <!-- Base application theme for dark mode. -->
     <style name="Theme.Notee" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/light_blue</item>
-        <item name="colorPrimaryVariant">@color/dark_blue</item>
+        <item name="colorPrimary">@color/green_200</item>
+        <item name="colorPrimaryVariant">@color/green_700</item>
         <item name="colorOnPrimary">@color/black</item>
-
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/pink</item>
-        <item name="colorSecondaryVariant">@color/beige</item>
+        <item name="colorSecondary">@color/light_green_200</item>
+        <item name="colorSecondaryVariant">@color/light_green_700</item>
         <item name="colorOnSecondary">@color/black</item>
-
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-
         <!-- Customize your theme here. -->
-        <!-- All the texts in MaterialTextView's are in this color for the dark mode -->
-        <item name="android:textColor">@color/beige</item>
+
     </style>
 </resources>
