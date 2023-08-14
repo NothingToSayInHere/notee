@@ -1,10 +1,9 @@
 package com.example.notee.view;
 
-import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -16,8 +15,9 @@ import com.example.notee.R;
 import com.example.notee.model.ShoppingList;
 import com.example.notee.model.ShoppingListItem;
 import com.example.notee.viewmodel.ShoppingListViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -47,30 +47,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         holder.deleteShoppingListButton.setOnClickListener(v -> {
             int deleteListId = shoppingList.getId();
             viewModel.deleteShoppingList(deleteListId);
-            Snackbar.make(v, "Shopping list deleted.", Snackbar.LENGTH_SHORT).show();
-
+            Toast.makeText(v.getContext(), "Shopping list deleted.", Toast.LENGTH_SHORT).show();
         });
 
-        holder.addShoppingListItemButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle("Add Item");
-
-            EditText itemNameEditText = new EditText(v.getContext());
-            builder.setView(itemNameEditText);
-
-            builder.setPositiveButton("Add", (dialog, which) -> {
-                String itemName = itemNameEditText.getText().toString();
-                if (!itemName.isEmpty()) {
-                    viewModel.addItemToShoppingList(shoppingList.getId(), itemName);
-                    Snackbar.make(v, "Item added.", Snackbar.LENGTH_SHORT).show();
-                }
-            });
-
-            builder.setNegativeButton("Cancel", null);
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        });
+        holder.addShoppingListItemButton.setOnClickListener(v -> showBottomSheet(v, shoppingList.getId()));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext());
 
@@ -86,6 +66,30 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public int getItemCount() {
         return shoppingListList.size();
+    }
+
+    private void showBottomSheet(View anchorView, int shoppingListId) {
+        View bottomSheetView = LayoutInflater.from(anchorView.getContext()).inflate(R.layout.add_item, (ViewGroup) anchorView.getParent(), false);
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(anchorView.getContext());
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+        TextInputEditText itemNameField = bottomSheetView.findViewById(R.id.item_name_field);
+        MaterialButton addToShoppingListButton = bottomSheetView.findViewById(R.id.add_to_shopping_list_button);
+        MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
+
+        addToShoppingListButton.setOnClickListener(v -> {
+            String itemName = itemNameField.getText() != null ? itemNameField.getText().toString() : "";
+            if (!itemName.isEmpty()) {
+                viewModel.addItemToShoppingList(shoppingListId, itemName);
+                Toast.makeText(anchorView.getContext(), "Item added.", Toast.LENGTH_SHORT).show();
+            }
+            bottomSheetDialog.dismiss();
+        });
+
+        cancelButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
+
+        bottomSheetDialog.show();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -105,8 +109,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     }
 
+
     public void setShoppingList(List<ShoppingList> shoppingList) {
         shoppingListList = shoppingList;
         notifyDataSetChanged();
     }
+
 }
