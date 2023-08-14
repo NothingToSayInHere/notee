@@ -2,6 +2,7 @@ package com.example.notee.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,6 +43,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         deleteNoteButton.setOnClickListener(v -> {
             viewModel.deleteNoteById(noteID);
+            Toast.makeText(v.getContext(), "Note deleted.", Toast.LENGTH_SHORT).show();
             finish();
         });
 
@@ -59,6 +61,8 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
             Note note = new Note(noteID, newTitle, newContent);
             viewModel.updateNote(note);
+
+            Toast.makeText(v.getContext(), "Note has been edited successfully.", Toast.LENGTH_SHORT).show();
 
             noteDetailsTitle.setEnabled(false);
             noteDetailsContent.setEnabled(false);
