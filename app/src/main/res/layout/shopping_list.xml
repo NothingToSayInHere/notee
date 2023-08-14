@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/shopping_list_name"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
