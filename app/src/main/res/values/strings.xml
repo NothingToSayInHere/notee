@@ -34,4 +34,5 @@
     <string name="add_to_shopping_list">Add To Shopping List</string>
     <string name="enter_item">Enter Item</string>
     <string name="item_name">Item Name</string>
+    <string name="cancel">Cancel</string>
 </resources>
