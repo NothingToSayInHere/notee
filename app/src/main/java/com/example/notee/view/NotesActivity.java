@@ -102,4 +102,12 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, NotesActivity.class));
+        overridePendingTransition(0, 0);
+        finish();
+    }
+
 }
